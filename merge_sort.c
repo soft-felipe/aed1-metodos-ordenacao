@@ -7,7 +7,7 @@
 
 /**
  * @author Felipe Moreira
- * @param vetor Vetor a ser ordenado
+ * @param vetor Vetor que sera combinado de maneira ordenada
  * @param inicio Primeira posiçao do vetor
  * @param meio Posiçao do meio do vetor
  * @param fim  Ultima posiçao do vetor
