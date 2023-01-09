@@ -114,47 +114,41 @@ void geraResultados() {
     long acumuloTempoExecucao = 0.0;
     long guardaTemposPorTamanho[casosTeste];
 
-    int *gerarVetor(int tamanho) {
-        int *vetor = (int *) malloc(tamanho * sizeof(int));
-        for (int i = 0; i < tamanho; i++) {
-            vetor[i] = rand();
-            for (escolheAlgoritmo = 1; escolheAlgoritmo <= 8; escolheAlgoritmo++) {
-                /* Codigo por algoritmo:
-                   * 1 - Insertion Sort
-                   * 2 - Selection Sort
-                   * 3 - Bubble Sort
-                   * 4 - Merge Sort
-                   * 5 - Quick Sort
-                   * 6 - Couting Sort
-                   * 7 - Radix Sort
-                   * 8 - Bucket Sort
-                */
-                for (incrementaTamanho = 0; incrementaTamanho < casosTeste; incrementaTamanho++) {
-                    /* Tamanhos possiveis por codigo:
-                        * 0 - 100
-                        * 1 - 1000
-                        * 2 - 10000
-                        * 3 - 100000
-                        * 4 - 1000000
-                        * 5 - 10000000 (Acho que aqui quebra por tamanho)
-                        * 6 - aqui entao... (testar)
-                    */
-                    for (i = 0; i < NUMERO_VETORES; i++) {
-                        /* Montando os 50 vetores com valores aleatorios e ordenando */
-                        int *vetor = gerarVetor(tamanhosPossiveis[incrementaTamanho]);
-                        double tempo = calculaTempoExecucao(vetor, tamanhosPossiveis[incrementaTamanho],
-                                                            escolheAlgoritmo);
-                        acumuloTempoExecucao += tempo;
-                    }
-                    // Armazenar a soma dos tempos por tamanho
-                    guardaTemposPorTamanho[incrementaTamanho] = acumuloTempoExecucao;
-                    acumuloTempoExecucao = 0.0;
-                }
-                return vetor;
-                imprimeResultadoPorAlgoritmo(escolheAlgoritmo, tamanhosPossiveis, guardaTemposPorTamanho, casosTeste);
-                // acho que nao precisa zerar o vetor 'guardaTemposPorTamanho'
+    for (escolheAlgoritmo = 1; escolheAlgoritmo <= 8; escolheAlgoritmo++) {
+        /* Codigo por algoritmo:
+           * 1 - Insertion Sort
+           * 2 - Selection Sort
+           * 3 - Bubble Sort
+           * 4 - Merge Sort
+           * 5 - Quick Sort
+           * 6 - Couting Sort
+           * 7 - Radix Sort
+           * 8 - Bucket Sort
+        */
+        for (incrementaTamanho = 0; incrementaTamanho < casosTeste; incrementaTamanho++) {
+            /* Tamanhos possiveis por codigo:
+                * 0 - 100
+                * 1 - 1000
+                * 2 - 10000
+                * 3 - 100000
+                * 4 - 1000000
+                * 5 - 10000000 (Acho que aqui quebra por tamanho)
+                * 6 - aqui entao... (testar)
+            */
+            for (i = 0; i < NUMERO_VETORES; i++) {
+                /* Montando os 50 vetores com valores aleatorios e ordenando */
+                int *vetor = gerarVetor(tamanhosPossiveis[incrementaTamanho]);
+                double tempo = calculaTempoExecucao(vetor, tamanhosPossiveis[incrementaTamanho],
+                                                    escolheAlgoritmo);
+                acumuloTempoExecucao += tempo;
             }
+            // Armazenar a soma dos tempos por tamanho
+            guardaTemposPorTamanho[incrementaTamanho] = acumuloTempoExecucao;
+            acumuloTempoExecucao = 0.0;
         }
+        return vetor;
+        imprimeResultadoPorAlgoritmo(escolheAlgoritmo, tamanhosPossiveis, guardaTemposPorTamanho, casosTeste);
+        // acho que nao precisa zerar o vetor 'guardaTemposPorTamanho'
     }
 }
 
