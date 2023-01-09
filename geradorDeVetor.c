@@ -146,7 +146,6 @@ void geraResultados() {
             guardaTemposPorTamanho[incrementaTamanho] = acumuloTempoExecucao;
             acumuloTempoExecucao = 0.0;
         }
-        return vetor;
         imprimeResultadoPorAlgoritmo(escolheAlgoritmo, tamanhosPossiveis, guardaTemposPorTamanho, casosTeste);
         // acho que nao precisa zerar o vetor 'guardaTemposPorTamanho'
     }
