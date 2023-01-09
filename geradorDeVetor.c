@@ -16,7 +16,7 @@
     int *gerarVetor(int tamanho) {
         int *vetor = (int *) malloc(tamanho * sizeof(int));
         for (int i = 0; i < tamanho; i++) {
-            vetor[i] = rand();
+            vetor[i] = srand(time(NULL));
         }
         return vetor;
     }
