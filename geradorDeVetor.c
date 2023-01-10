@@ -15,8 +15,8 @@
  * @author Daniel Nogueira
  * Gera vetores de inteiros aleatórios de acordo com o tamanho desejado
  * @param tamanho Tamanho do vetor a ser gerado
+ * @return Vetor gerado
  */
-
 int *gerarVetor(int tamanho) {
     int *vetor = (int *) malloc(tamanho * sizeof(int));
     for (int i = 0; i < tamanho; i++) {
@@ -59,15 +59,27 @@ double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
             t_fim = clock();
             return (double)(t_fim -  t_ini);
         case 2:
-            break;
+            t_ini = clock();
+            t_fim = clock();
+            return (double)(t_fim -  t_ini);
         case 3:
-            break;
+            t_ini = clock();
+            t_fim = clock();
+            return (double)(t_fim -  t_ini);
         case 4:
-            break;
+            t_ini = clock();
+            t_fim = clock();
+            return (double)(t_fim -  t_ini);
         case 5:
-            break;
+            t_ini = clock();
+            t_fim = clock();
+            return (double)(t_fim -  t_ini);
         case 6:
-            break;
+            t_ini = clock();
+            // chama algoritmo passando vetor e tamanho
+//            insertion_sort(vetor, tamanhoVetor);
+            t_fim = clock();
+            return (double)(t_fim -  t_ini);
     }
 }
 
@@ -78,25 +90,25 @@ void imprimeResultadoPorAlgoritmo(int algoritmo, int *tamanhos, double *tempos, 
     if (algoritmo == 1) {
         printf("|                             INSERTION SORT                            |\n");
     } else if (algoritmo == 2) {
-        printf("|      SELECTION SORT      |\n"); // arrumar como o insertion
+        printf("|                             SELECTION SORT                            |\n");
     } else if (algoritmo == 3) {
-        printf("|      BUBBLE SORT      |\n");
+        printf("|                               BUBBLE SORT                             |\n");
     } else if (algoritmo == 4) {
-        printf("|      MERGE SORT      |\n");
+        printf("|                               MERGE SORT                              |\n");
     } else if (algoritmo == 5) {
-        printf("|      QUICK SORT      |\n");
+        printf("|                               QUICK SORT                              |\n");
     } else if (algoritmo == 6) {
-        printf("|      COUTING SORT      |\n");
+        printf("|                              COUNTING SORT                            |\n");
     } else if (algoritmo == 7) {
-        printf("|      RADIX SORT      |\n");
+        printf("|                               RADIX SORT                              |\n");
     } else if (algoritmo == 8) {
-        printf("|      BUCKET SORT      |\n");
+        printf("|                               BUCKET SORT                             |\n");
     }
     printf("+-----------------------------------------------------------------------+\n"); // 71 -
 
     printf("|  Numero de vetores   |    Tamanho  |      Tempo aproximado (ms)       |\n");
     for (i = 0; i < casosTeste; i++) {
-        printf("|         %d           |   %6d    |           %11.6f            |\n", 50, tamanhos[i], tempos[i]); // arrumar tempo pra ms
+        printf("|         %d           |   %6d    |           %11.6f            |\n", 50, tamanhos[i], tempos[i] / ((double)NUMERO_VETORES * 1.0)); // arrumar tempo pra ms
     }
     printf("+-----------------------------------------------------------------------+\n"); // 71 -
 }
