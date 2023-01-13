@@ -5,6 +5,7 @@
  *  Norton Almeida - 202203526
  */
 
+#include "metodos.h"
 /**
  * @author Felipe Moreira
  * @param vetor Vetor a ser ordenado

@@ -9,6 +9,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+#include "metodos.h"
+
 #define NUMERO_VETORES 50
 
 /**
@@ -55,10 +58,9 @@ double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
     switch (algoritmo) {
         case 1:
             t_ini = clock();
-            // chama algoritmo passando vetor e tamanho
-//            insertion_sort(vetor, tamanhoVetor);
+            insertionSort(vetor, tamanhoVetor);
             t_fim = clock();
-            return (double)(t_fim -  t_ini);
+            return (double)(t_fim - t_ini);
         case 2:
             t_ini = clock();
             t_fim = clock();
@@ -84,7 +86,7 @@ double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
     }
 }
 
-void imprimeResultadoPorAlgoritmo(int algoritmo, long int *tamanhos, long int *tempos, int casosTeste) {
+void imprimeResultadoPorAlgoritmo(int algoritmo, long int *tamanhos, double *tempos, int casosTeste) {
     int i;
 
     printf("+-----------------------------------------------------------------------+\n"); // 71 -
@@ -109,7 +111,7 @@ void imprimeResultadoPorAlgoritmo(int algoritmo, long int *tamanhos, long int *t
 
     printf("|  Numero de vetores   |    Tamanho  |      Tempo aproximado (ms)       |\n");
     for (i = 0; i < casosTeste; i++) {
-        printf("|         %d           |   %6d    |           %11.6f            |\n", 50, tamanhos[i], tempos[i] / ((double)NUMERO_VETORES * 1.0)); // arrumar tempo pra ms
+        printf("|         %d           |   %6.d    |              %f            |\n", NUMERO_VETORES, tamanhos[i], (tempos[i] / CLOCKS_PER_SEC)); // arrumar tempo pra ms
     }
     printf("+-----------------------------------------------------------------------+\n"); // 71 -
 }
@@ -121,13 +123,13 @@ void imprimeResultadoPorAlgoritmo(int algoritmo, long int *tamanhos, long int *t
 void geraResultados() {
     int i, incrementaTamanho, escolheAlgoritmo;
     int casosTeste = 6;
-    long int tamanhosPossiveis[] = {100, 1000, 10000, 100000, 1000000, 10000000};
+    long int tamanhosPossiveis[] = {1000, 1000, 1000, 1000, 1000, 1000};
 
 
-    long acumuloTempoExecucao = 0.0;
-    long guardaTemposPorTamanho[casosTeste];
+    double acumuloTempoExecucao = 0.0;
+    double guardaTemposPorTamanho[casosTeste];
 
-    for (escolheAlgoritmo = 1; escolheAlgoritmo <= 8; escolheAlgoritmo++) {
+    for (escolheAlgoritmo = 1; escolheAlgoritmo <= 1; escolheAlgoritmo++) {
         /* Codigo por algoritmo:
            * 1 - Insertion Sort
            * 2 - Selection Sort
@@ -151,12 +153,12 @@ void geraResultados() {
             for (i = 0; i < NUMERO_VETORES; i++) {
                 /* Montando os 50 vetores com valores aleatorios e ordenando */
                 int *vetor = gerarVetor(tamanhosPossiveis[incrementaTamanho]);
-                long int tempo = calculaTempoExecucao(vetor, tamanhosPossiveis[incrementaTamanho],
+                double tempo = calculaTempoExecucao(vetor, tamanhosPossiveis[incrementaTamanho],
                                                     escolheAlgoritmo);
                 acumuloTempoExecucao += tempo;
             }
             // Armazenar a soma dos tempos por tamanho
-            guardaTemposPorTamanho[incrementaTamanho] = acumuloTempoExecucao;
+            guardaTemposPorTamanho[incrementaTamanho] = acumuloTempoExecucao / NUMERO_VETORES;
             acumuloTempoExecucao = 0.0;
         }
         imprimeResultadoPorAlgoritmo(escolheAlgoritmo, tamanhosPossiveis, guardaTemposPorTamanho, casosTeste);
@@ -166,11 +168,19 @@ void geraResultados() {
 
 int main() {
     // Utilizando para teste local
-    int *vetor = gerarVetor(10);
-    for (int indice = 0; indice < 10; indice++) {
-        printf("%d  ", vetor[indice]);
-    }
+    geraResultados();
 
+    int *vetor = gerarVetor(10);
+    printf("Vetor desordenado: ");
+    for (int indice = 0; indice < 10; indice++) {
+        printf("%d ", vetor[indice]);
+    }
+    printf("\n");
+    insertionSort(vetor, 10);
+    printf("Vetor ordenado: ");
+    for (int indice = 0; indice < 10; indice++) {
+        printf("%d ", vetor[indice]);
+    }
     return 0;
 }
 
