@@ -19,8 +19,9 @@
  */
 int *gerarVetor(int tamanho) {
     int *vetor = (int *) malloc(tamanho * sizeof(int));
+    srand(time(NULL));
     for (int i = 0; i < tamanho; i++) {
-        vetor[i] = srand(time(NULL));
+        vetor[i] = rand();
     }
     return vetor;
 }
@@ -83,7 +84,7 @@ double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
     }
 }
 
-void imprimeResultadoPorAlgoritmo(int algoritmo, int *tamanhos, double *tempos, int casosTeste) {
+void imprimeResultadoPorAlgoritmo(int algoritmo, long int *tamanhos, long int *tempos, int casosTeste) {
     int i;
 
     printf("+-----------------------------------------------------------------------+\n"); // 71 -
@@ -150,7 +151,7 @@ void geraResultados() {
             for (i = 0; i < NUMERO_VETORES; i++) {
                 /* Montando os 50 vetores com valores aleatorios e ordenando */
                 int *vetor = gerarVetor(tamanhosPossiveis[incrementaTamanho]);
-                double tempo = calculaTempoExecucao(vetor, tamanhosPossiveis[incrementaTamanho],
+                long int tempo = calculaTempoExecucao(vetor, tamanhosPossiveis[incrementaTamanho],
                                                     escolheAlgoritmo);
                 acumuloTempoExecucao += tempo;
             }
@@ -165,7 +166,10 @@ void geraResultados() {
 
 int main() {
     // Utilizando para teste local
-
+    int *vetor = gerarVetor(10);
+    for (int indice = 0; indice < 10; indice++) {
+        printf("%d  ", vetor[indice]);
+    }
 
     return 0;
 }
