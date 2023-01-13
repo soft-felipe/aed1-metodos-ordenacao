@@ -120,9 +120,9 @@ void imprimeResultadoPorAlgoritmo(int algoritmo, long int *tamanhos, long int *t
  */
 void geraResultados() {
     int i, incrementaTamanho, escolheAlgoritmo;
-
-    long int tamanhosPossiveis[6] = {100, 1000, 10000, 100000, 1000000, 10000000};
     int casosTeste = 6;
+    long int tamanhosPossiveis[] = {100, 1000, 10000, 100000, 1000000, 10000000};
+
 
     long acumuloTempoExecucao = 0.0;
     long guardaTemposPorTamanho[casosTeste];
