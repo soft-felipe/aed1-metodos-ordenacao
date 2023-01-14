@@ -12,7 +12,7 @@
 #include "metodos.h"
 
 #define NUMERO_VETORES 50
-#define QUANTIDADE_ALGORITMOS 8
+#define QUANTIDADE_ALGORITMOS 6
 
 /**
  * @author Daniel Nogueira
@@ -24,31 +24,20 @@ int *gerarVetor(int tamanho) {
     int *vetor = (int *) malloc(tamanho * sizeof(int));
     srand(time(NULL));
     for (int i = 0; i < tamanho; i++) {
-        vetor[i] = rand();
+        vetor[i] = rand() % 1000;
     }
     return vetor;
 }
 
 /**
  * @author Felipe Moreira
- * Metodo que retorna o tempo de ordenaçao em SEGUNDOS, com a funçao clock da biblioteca 'time.h'
+ * Metodo que retorna o tempo de ordenaçao em MILISSEGUNDOS, com a funçao clock da biblioteca 'time.h'
  * @param vetor Vetor que sera ordenado
  * @param tamanhoVetor Tamanho do vetor
  * @param algoritmo Codigo que identifica qual sera o algoritmo de ordenaçao
- * @return Tempo de execuçao em segundos
+ * @return Tempo de execuçao em milissegundos
  */
 double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
-    /* Codigo por algoritmo:
-     * 1 - Insertion Sort
-     * 2 - Selection Sort
-     * 3 - Bubble Sort
-     * 4 - Merge Sort
-     * 5 - Quick Sort
-     * 6 - Couting Sort
-     * 7 - Radix Sort
-     * 8 - Bucket Sort
-     */
-
     clock_t t_ini, t_fim;
     switch (algoritmo) {
         case 1:
@@ -111,29 +100,27 @@ double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
  * @param algoritmo Identificador do algoritmo
  */
 void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
-    int i;
-
-    printf("+-----------------------------------------------------------------------+\n"); // 71 -
+    printf("+-----------------------------------------------------------------------+\n");
     printf("|                           TAMANHO DOS VETORES = %d                    |\n", tamanho);
-    printf("+-----------------------------------------------------------------------+\n"); // 71 -
+    printf("+-----------------------------------------------------------------------+\n");
     printf("|      ALGORITMO      |    NUMERO DE VETORES    |    TEMPO MEDIO (ms)   |\n");
-    printf("|    INSERTION SORT   |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    INSERTION SORT   |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[1]);
-    printf("|    SELECTION SORT   |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    SELECTION SORT   |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[2]);
-    printf("|    BUBBLE SORT      |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    BUBBLE SORT      |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[3]);
-    printf("|    MERGE SORT       |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    MERGE SORT       |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[4]);
-    printf("|    QUICK SORT       |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    QUICK SORT       |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[5]);
-    printf("|    COUNTING SORT    |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    COUNTING SORT    |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[6]);
-    printf("|    RADIX SORT       |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    RADIX SORT       |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[7]);
-    printf("|    BUCKET SORT      |          %5.d          |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    BUCKET SORT      |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
                tempos[8]);
-    printf("+-----------------------------------------------------------------------+\n"); // 71 -
+    printf("+-----------------------------------------------------------------------+\n");
 }
 
 /**
@@ -143,8 +130,8 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
  */
 void geraResultados() {
     int escolheTamanho, escolheAlgoritmo;
-    int casosTeste = 6;
-    long int tamanhosPossiveis[] = {10, 10, 10, 10, 10, 10};
+    int casosTeste = 9;
+    long int tamanhosPossiveis[] = {100, 1000, 5000, 10000, 20000, 50000, 75000, 100000, 200000};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS + 1] = {0.0};
 
@@ -161,10 +148,19 @@ void geraResultados() {
                 * 8 - 200000
             */
         for (int i = 0; i < NUMERO_VETORES; i++) {
-            /* Montando os 50 vetores com valores aleatorios*/
+            /* Montando os 50 vetores com valores aleatorios */
             int *vetor = gerarVetor(tamanhosPossiveis[escolheTamanho]);
+
             for (int indice = 1; indice <= QUANTIDADE_ALGORITMOS; indice++) {
-                /* Executando os 8 algoritmos de ordenacao*/
+
+                /* Copiando o vetor original (desornado) para um auxiliar,
+                 * para garantir que sempre sera ordenado o mesmo vetor */
+                int vetorAux[tamanhosPossiveis[escolheTamanho]];
+                for (int j = 0; j < tamanhosPossiveis[escolheTamanho]; j++) {
+                    vetorAux[j] = vetor[j];
+                }
+
+                /* Executando os 8 algoritmos de ordenacao */
                 /* Codigo por algoritmo:
                     * 1 - Insertion Sort
                     * 2 - Selection Sort
@@ -175,9 +171,10 @@ void geraResultados() {
                     * 7 - Radix Sort
                     * 8 - Bucket Sort
                 */
-                guardaTemposPorAlgoritmo[indice] += calculaTempoExecucao(vetor, tamanhosPossiveis[escolheTamanho], indice);
+                guardaTemposPorAlgoritmo[indice] += calculaTempoExecucao(vetorAux, tamanhosPossiveis[escolheTamanho], indice);
             }
         }
+
         imprimeResultadoPorTamanhoVetor(tamanhosPossiveis[escolheTamanho], guardaTemposPorAlgoritmo);
         for (escolheAlgoritmo = 1; escolheAlgoritmo <= QUANTIDADE_ALGORITMOS; escolheAlgoritmo++) {
             guardaTemposPorAlgoritmo[escolheAlgoritmo] = 0.0;
@@ -195,11 +192,12 @@ int main() {
         printf("%d ", vetor[indice]);
     }
     printf("\n");
-    selectionSort(vetor, 10);
+    mergeSort(vetor, 10);
     printf("Vetor ordenado: ");
     for (int indice = 0; indice < 10; indice++) {
         printf("%d ", vetor[indice]);
     }
+
     return 0;
 }
 
