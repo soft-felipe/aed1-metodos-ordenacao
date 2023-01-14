@@ -4,66 +4,59 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
+#include <stdlib.h>
 #include "metodos.h"
-/**
- * @author Felipe Moreira
- * @param vetor Vetor que sera combinado de maneira ordenada
- * @param inicio Primeira posiçao do vetor
- * @param meio Posiçao do meio do vetor
- * @param fim  Ultima posiçao do vetor
- */
 
 /**
  * @author Felipe Moreira
- * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort
+ * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort, fragmentando o vetor em sub-vetores
  * @param vetor Vetor a ser ordenado
- * @param inicio Primeira posiçao do vetor
- * @param fim Ultima posiçao do vetor
+ * @param tamanhoVetor Tamanho do vetor
  */
-void mergeSort(int *vetor, int inicio, int fim) {
-    if (inicio < fim) {
-        int meio = (inicio + fim) / 2;
-        mergeSort(vetor, inicio, meio);
-        mergeSort(vetor, meio+1, fim);
-        merge(vetor, inicio, meio, fim);
+void mergeSort(int *vetor, int tamanhoVetor) {
+    if (tamanhoVetor < 2) {
+        return;
     }
+
+    int meio = (double)tamanhoVetor * 1.0 / 2.0;
+    int esquerda[meio];
+    int direita[tamanhoVetor - meio];
+
+    for (int i = 0; i < meio; i++) {
+        esquerda[i] = vetor[i];
+    }
+    for (int i = meio; i < tamanhoVetor; i++) {
+        direita[i - meio] = vetor[i];
+    }
+
+    mergeSort(vetor, meio);
+    mergeSort(vetor, tamanhoVetor - meio);
+    merge(vetor, esquerda, direita, meio, tamanhoVetor - meio);
 }
 
 /**
  * @author Felipe Moreira
- * Fragmenta um vetor de inteiros utilizando o método de ordenação Merge Sort
+ * Ordena os sub-vetores
  * @param vetor Vetor a ser ordenado
- * @param inicio Primeira posiçao do vetor
- * @param fim Ultima posiçao do vetor
- * @param meio Posiçao do meio do vetor
+ * @param esquerda Vetor da esquerda
+ * @param direita Vetor da direita
+ * @param tamanhoEsquerda Tamanho do vetor da esquerda
+ * @param tamanhoDireita Tamanho do vetor da direita
  */
-void merge(int *vetor, int inicio, int meio, int fim) {
-    int i = inicio, j = meio + 1, k = inicio, aux[(fim - inicio) + 1];
-
-    while ((i <= meio) && (j <= fim)) {
-        if (vetor[i] < vetor[j]) {
-            aux[k] = vetor[i];
-            i++;
+void merge(int *vetor, int *esquerda, int *direita, int tamanhoEsquerda, int tamanhoDireita) {
+    int i = 0, j = 0, k = 0;
+    while (i < tamanhoEsquerda && j < tamanhoDireita) {
+        if (esquerda[i] <= direita[j]) {
+            vetor[k++] = esquerda[i++];
         } else {
-            aux[k] = vetor[j];
-            j++;
+            vetor[k++] = direita[j++];
         }
-        k++;
     }
-
-    while (i <= meio) {
-        aux[k] = vetor[i];
-        i++;
-        k++;
+    while (i < tamanhoEsquerda) {
+        vetor[k++] = esquerda[i++];
     }
-
-    while (j <= fim) {
-        aux[k] = vetor[j];
-        j++;
-        k++;
-    }
-
-    for (i = 0; i <= fim; i++) {
-        vetor[i] = aux[i];
+    while (j < tamanhoDireita) {
+        vetor[k++] = direita[j++];
     }
 }
+
