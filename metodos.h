@@ -4,4 +4,26 @@
 
 void insertionSort(int *vetor, int numeroElementos);
 
+void selectionSort(int *vetor, int numeroElementos);
+
+void bubbleSort(int *vetor, int numeroElementos);
+
+void mergeSort(int *vetor, int inicio, int fim);
+
+void merge(int *vetor, int inicio, int meio, int fim);
+
+void quickSort(int *vetor, int inicio, int fim);
+
+int particiona(int *vetor, int inicio, int fim);
+
+void countingSort(int *vetor, int numeroElementos);
+
+void countingSort(int *vetor, int numeroElementos);
+
+void radixSort(int *vetor, int numeroElementos);
+
+void countingSortToRadix(int *vetor, int numeroElementos, int exp);
+
+void bucketSort(int *vetor, int numeroElementos);
+
 #endif //AED1_METODOS_ORDENACAO_METODOS_H

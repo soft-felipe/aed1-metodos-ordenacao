@@ -8,6 +8,7 @@
 #include "metodos.h"
 /**
  * @author Felipe Moreira
+ * Ordena um vetor de inteiros utilizando o método de ordenação Insertion Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  */

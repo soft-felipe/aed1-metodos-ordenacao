@@ -4,7 +4,7 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
-
+#include "metodos.h"
 /**
  * @author Felipe Moreira
  * @param vetor Vetor que sera combinado de maneira ordenada
@@ -12,23 +12,31 @@
  * @param meio Posiçao do meio do vetor
  * @param fim  Ultima posiçao do vetor
  */
-void merge(int *vetor, int inicio, int meio, int fim);
 
 /**
  * @author Felipe Moreira
+ * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort
  * @param vetor Vetor a ser ordenado
  * @param inicio Primeira posiçao do vetor
  * @param fim Ultima posiçao do vetor
  */
-void merge_sort(int *vetor, int inicio, int fim) {
+void mergeSort(int *vetor, int inicio, int fim) {
     if (inicio < fim) {
         int meio = (inicio + fim) / 2;
-        merge_sort(vetor, inicio, meio);
-        merge_sort(vetor, meio+1, fim);
+        mergeSort(vetor, inicio, meio);
+        mergeSort(vetor, meio+1, fim);
         merge(vetor, inicio, meio, fim);
     }
 }
 
+/**
+ * @author Felipe Moreira
+ * Fragmenta um vetor de inteiros utilizando o método de ordenação Merge Sort
+ * @param vetor Vetor a ser ordenado
+ * @param inicio Primeira posiçao do vetor
+ * @param fim Ultima posiçao do vetor
+ * @param meio Posiçao do meio do vetor
+ */
 void merge(int *vetor, int inicio, int meio, int fim) {
     int i = inicio, j = meio + 1, k = inicio, aux[(fim - inicio) + 1];
 

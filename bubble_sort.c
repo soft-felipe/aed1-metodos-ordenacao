@@ -4,9 +4,11 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
+#include "metodos.h"
 
 /**
  * @author Felipe Moreira
+ * Ordena um vetor de inteiros utilizando o método de ordenação Bubble Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  */
