@@ -101,24 +101,24 @@ double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
  */
 void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
     printf("+-----------------------------------------------------------------------+\n");
-    printf("|                           TAMANHO DOS VETORES = %d                    |\n", tamanho);
+    printf("|                      TAMANHO DOS VETORES  = %6d                    |\n", tamanho);
     printf("+-----------------------------------------------------------------------+\n");
     printf("|      ALGORITMO      |    NUMERO DE VETORES    |    TEMPO MEDIO (ms)   |\n");
-    printf("|    INSERTION SORT   |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    INSERTION SORT   |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[1]);
-    printf("|    SELECTION SORT   |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    SELECTION SORT   |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[2]);
-    printf("|    BUBBLE SORT      |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    BUBBLE SORT      |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[3]);
-    printf("|    MERGE SORT       |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    MERGE SORT       |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[4]);
-    printf("|    QUICK SORT       |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    QUICK SORT       |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[5]);
-    printf("|    COUNTING SORT    |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    COUNTING SORT    |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[6]);
-    printf("|    RADIX SORT       |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    RADIX SORT       |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[7]);
-    printf("|    BUCKET SORT      |         %5.d           |         %.4f        |\n", NUMERO_VETORES,
+    printf("|    BUCKET SORT      |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
                tempos[8]);
     printf("+-----------------------------------------------------------------------+\n");
 }
@@ -131,7 +131,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
 void geraResultados() {
     int escolheTamanho, escolheAlgoritmo;
     int casosTeste = 9;
-    long int tamanhosPossiveis[] = {100, 1000, 5000, 10000, 20000, 50000, 75000, 100000, 200000};
+    long int tamanhosPossiveis[] = {100, 1000, 5000, 10000, 1000, 100, 500, 100, 5};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS + 1] = {0.0};
 
