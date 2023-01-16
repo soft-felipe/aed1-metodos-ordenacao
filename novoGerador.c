@@ -11,7 +11,7 @@
 #include "metodos.h"
 
 #define NUMERO_VETORES 50
-#define QUANTIDADE_ALGORITMOS 6
+#define QUANTIDADE_ALGORITMOS 8
 
 /**
  * @author Daniel Nogueira
@@ -106,7 +106,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
 void geraResultados() {
     int escolheTamanho, escolheAlgoritmo;
     int casosTeste = 8;
-    long int tamanhosPossiveis[] = {100, 1000, 1000, 1000, 1000, 1000, 2500, 1000};
+    long int tamanhosPossiveis[] = {2000, 2000, 2000, 3000, 2000, 1500, 2500, 1750};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS + 1] = {0.0};
 
@@ -161,13 +161,15 @@ int main() {
     // Utilizando para teste local
     geraResultados();
 
+
+    printf("Radix Sort: \n");
     int *vetor = gerarVetor(10);
     printf("Vetor desordenado: ");
     for (int indice = 0; indice < 10; indice++) {
         printf("%d ", vetor[indice]);
     }
     printf("\n");
-    mergeSort(vetor, 10);
+    radixSort(vetor, 10);
     printf("Vetor ordenado: ");
     for (int indice = 0; indice < 10; indice++) {
         printf("%d ", vetor[indice]);
