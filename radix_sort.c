@@ -22,8 +22,8 @@ void radixSort(int *vetor, int numeroElementos) {
             maior = vetor[i];
         }
     }
-    for (int exp = 1; maior / exp > 0; exp *= 10) {
-        countingSortToRadix(vetor, numeroElementos, exp);
+    for (int casaDecimal = 1; maior / casaDecimal > 0; casaDecimal *= 10) {
+        countingSortToRadix(vetor, numeroElementos, casaDecimal);
     }
 }
 
@@ -35,25 +35,38 @@ void radixSort(int *vetor, int numeroElementos) {
  * @param casaDecimal Marca a casa decimal que está sendo ordenada
  */
  void countingSortToRadix(int *vetor, int numeroElementos, int casaDecimal) {
-     int *vetorOrdenado = vetor;
-     int vetorAuxiliar[10] = {0};
-     for (int indice = 0; indice < numeroElementos; indice++) {
-         vetorAuxiliar[(vetor[indice] / casaDecimal) % 10]++;
-     }
+    int vetorOrdenado[numeroElementos - 1];
+    int maior = (vetor[0] / casaDecimal) % 10;
 
-     for (int indice = 1; indice < 10; indice++) {
-         vetorAuxiliar[indice] += vetorAuxiliar[indice - 1];
-     }
+    for (int i = 1; i < numeroElementos; i++) {
+        if (((vetor[i] / casaDecimal) % 10) > maior) {
+            maior = vetor[i];
+        }
+    }
+    int count[maior + 1];
 
-     for (int indice = numeroElementos - 1; indice >= 0; indice--) {
-         vetorOrdenado[vetorAuxiliar[(vetor[indice] / casaDecimal) % 10] - 1] = vetor[indice];
-         vetorAuxiliar[(vetor[indice] / casaDecimal) % 10]--;
-     }
+    for (int i = 0; i < maior; ++i) {
+        count[i] = 0;
+    }
 
-     for(int indice = 0; indice < numeroElementos; indice++) {
-         vetor[indice] = vetorOrdenado[indice];
-     }
- }
+    for (int i = 0; i < numeroElementos; i++) {
+        count[(vetor[i] / casaDecimal) % 10]++;
+    }
+
+    for (int i = 1; i < 10; i++) {
+        count[i] += count[i - 1];
+    }
+
+    for (int i = numeroElementos - 1; i >= 0; i--) {
+        vetorOrdenado[count[(vetor[i] / casaDecimal) % 10] - 1] = vetor[i];
+        count[(vetor[i] / casaDecimal) % 10]--;
+    }
+
+    for (int i = 0; i < numeroElementos; i++) {
+        vetor[i] = vetorOrdenado[i];
+    }
+
+}
 
 /**
 * @author Daniel Nogueira
@@ -71,5 +84,3 @@ double radixSortTime(int *vetor, int numeroElementos) {
     tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
     return tempoGasto;
 }
-
-
