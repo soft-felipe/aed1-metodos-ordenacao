@@ -94,7 +94,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
            tempos[7], (tempos[7] / (NUMERO_VETORES * 1.0)));
     printf("|    BUCKET SORT      |      %5.d          |   %15.6f   |     %12.6f  |\n", NUMERO_VETORES,
            tempos[8], (tempos[8] / (NUMERO_VETORES * 1.0)));
-    printf("+-------------------------------------------------------------------------------------+\n");
+    printf("+-------------------------------------------------------------------------------------+\n\n");
 }
 
 /**
