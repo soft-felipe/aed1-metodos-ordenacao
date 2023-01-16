@@ -4,29 +4,39 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
-
-#include <time.h>
 #include "metodos.h"
+#include <time.h>
+
+
 /**
  * @author Felipe Moreira
- * Ordena um vetor de inteiros utilizando o método de ordenação Insertion Sort
+ * Ordena um vetor de inteiros utilizando o método de ordenação Counting Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  */
-void insertionSort(int *vetor, int numeroElementos) {
-    int i, j, aux;
-    i = 0;
-    j = 1;
+void countingSort(int *vetor, int numeroElementos) {
+    int i, j, k, max = 0;
 
-    while (j < numeroElementos) {
-        i = j - 1;
-        aux = vetor[j];
-        while ((i >= 0) && (vetor[i] > aux)) {
-            vetor[i + 1] = vetor[i];
-            i--;
+    for (i = 0; i < numeroElementos; i++) {
+        if (vetor[i] > max) {
+            max = vetor[i];
         }
-        vetor[i + 1] = aux;
-        j++;
+    }
+
+    int aux[max + 1];
+    for (i = 0; i <= max; i++) {
+        aux[i] = 0;
+    }
+
+    for (i = 0; i < numeroElementos; i++) {
+        aux[vetor[i]]++;
+    }
+
+    for (i = 0, j = 0; j <= max; j++) {
+        for (k = aux[j]; k > 0; k--) {
+            vetor[i] = j;
+            i++;
+        }
     }
 }
 
@@ -37,11 +47,11 @@ void insertionSort(int *vetor, int numeroElementos) {
  * @param numeroElementos Tamanho do vetor
  * @return Tempo gasto para ordenar o vetor
  */
-double insertionSortTime(int *vetor, int numeroElementos) {
+double countingSortTime(int *vetor, int numeroElementos) {
     clock_t inicio, fim;
     double tempoGasto;
     inicio = clock();
-    insertionSort(vetor, numeroElementos);
+    countingSort(vetor, numeroElementos);
     fim = clock();
     tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
     return tempoGasto;

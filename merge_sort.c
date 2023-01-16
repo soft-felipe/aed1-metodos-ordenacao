@@ -5,57 +5,76 @@
  *  Norton Almeida - 202203526
  */
 
-/**
- * @author Felipe Moreira
- * @param vetor Vetor que sera combinado de maneira ordenada
- * @param inicio Primeira posiçao do vetor
- * @param meio Posiçao do meio do vetor
- * @param fim  Ultima posiçao do vetor
- */
-void merge(int *vetor, int inicio, int meio, int fim);
+#include <time.h>
+#include "metodos.h"
 
 /**
  * @author Felipe Moreira
+ * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort, fragmentando o vetor em sub-vetores
  * @param vetor Vetor a ser ordenado
- * @param inicio Primeira posiçao do vetor
- * @param fim Ultima posiçao do vetor
+ * @param tamanhoVetor Tamanho do vetor
  */
-void merge_sort(int *vetor, int inicio, int fim) {
-    if (inicio < fim) {
-        int meio = (inicio + fim) / 2;
-        merge_sort(vetor, inicio, meio);
-        merge_sort(vetor, meio+1, fim);
-        merge(vetor, inicio, meio, fim);
+void mergeSort(int *vetor, int tamanhoVetor) {
+    if (tamanhoVetor < 2) {
+        return;
     }
+
+    int meio = (double)tamanhoVetor * 1.0 / 2.0;
+    int esquerda[meio];
+    int direita[tamanhoVetor - meio];
+
+    for (int i = 0; i < meio; i++) {
+        esquerda[i] = vetor[i];
+    }
+    for (int i = meio; i < tamanhoVetor; i++) {
+        direita[i - meio] = vetor[i];
+    }
+
+    mergeSort(vetor, meio);
+    mergeSort(vetor, tamanhoVetor - meio);
+    merge(vetor, esquerda, direita, meio, tamanhoVetor - meio);
 }
 
-void merge(int *vetor, int inicio, int meio, int fim) {
-    int i = inicio, j = meio + 1, k = inicio, aux[(fim - inicio) + 1];
-
-    while ((i <= meio) && (j <= fim)) {
-        if (vetor[i] < vetor[j]) {
-            aux[k] = vetor[i];
-            i++;
+/**
+ * @author Felipe Moreira
+ * Ordena os sub-vetores
+ * @param vetor Vetor a ser ordenado
+ * @param esquerda Vetor da esquerda
+ * @param direita Vetor da direita
+ * @param tamanhoEsquerda Tamanho do vetor da esquerda
+ * @param tamanhoDireita Tamanho do vetor da direita
+ */
+void merge(int *vetor, int *esquerda, int *direita, int tamanhoEsquerda, int tamanhoDireita) {
+    int i = 0, j = 0, k = 0;
+    while (i < tamanhoEsquerda && j < tamanhoDireita) {
+        if (esquerda[i] <= direita[j]) {
+            vetor[k++] = esquerda[i++];
         } else {
-            aux[k] = vetor[j];
-            j++;
+            vetor[k++] = direita[j++];
         }
-        k++;
     }
-
-    while (i <= meio) {
-        aux[k] = vetor[i];
-        i++;
-        k++;
+    while (i < tamanhoEsquerda) {
+        vetor[k++] = esquerda[i++];
     }
-
-    while (j <= fim) {
-        aux[k] = vetor[j];
-        j++;
-        k++;
-    }
-
-    for (i = 0; i <= fim; i++) {
-        vetor[i] = aux[i];
+    while (j < tamanhoDireita) {
+        vetor[k++] = direita[j++];
     }
 }
+
+/**
+* @author Daniel Nogueira
+ * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * @param vetor Vetor a ser ordenado
+ * @param numeroElementos Tamanho do vetor
+ * @return Tempo gasto para ordenar o vetor
+ */
+double mergeSortTime(int *vetor, int numeroElementos) {
+    clock_t inicio, fim;
+    double tempoGasto;
+    inicio = clock();
+    mergeSort(vetor, numeroElementos);
+    fim = clock();
+    tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
+    return tempoGasto;
+}
+

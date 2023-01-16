@@ -5,29 +5,30 @@
  *  Norton Almeida - 202203526
  */
 
-/**
- * @author Felipe Moreira
- * @param vetor Vetor a ser procurado o pivo
- * @param inicio Primeira posiçao do vetor
- * @param fim Ultima posiçao do vetor
- * @return Pivo
- */
-int particiona(int *vetor, int inicio, int fim);
+#include <time.h>
+#include "metodos.h"
 
 /**
  * @author Felipe Moreira
+ * Ordena um vetor de inteiros utilizando o método de ordenação Quick Sort
  * @param vetor Vetor a ser ordenado
  * @param inicio Primeira posiçao do vetor
  * @param fim Ultima posiçao do vetor
  */
-void quick_sort(int *vetor, int inicio, int fim) {
+void quickSort(int *vetor, int inicio, int fim) {
     if (inicio < fim) {
         int q = particiona(vetor, inicio, fim);
-        quick_sort(vetor, inicio, q - 1);
-        quick_sort(vetor, q + 1, fim);
+        quickSort(vetor, inicio, q - 1);
+        quickSort(vetor, q + 1, fim);
     }
 }
-
+/**
+ * @author Felipe Moreira
+ * Divide um vetor em duas partes, uma com elementos menores que o pivo e outra com elementos maiores que o pivo
+ * @param vetor Vetor a ser ordenado
+ * @param inicio Primeira posiçao do vetor
+ * @param fim Ultima posiçao do vetor
+ */
 int particiona(int *vetor, int inicio, int fim) {
     int esq = inicio, dir = fim, pivo = vetor[inicio], aux;
 
@@ -51,4 +52,21 @@ int particiona(int *vetor, int inicio, int fim) {
     vetor[inicio] = vetor[dir];
     vetor[dir] = pivo;
     return dir;
+}
+
+/**
+* @author Daniel Nogueira
+ * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * @param vetor Vetor a ser ordenado
+ * @param numeroElementos Tamanho do vetor
+ * @return Tempo gasto para ordenar o vetor
+ */
+double quickSortTime(int *vetor, int numeroElementos) {
+    clock_t startClock, endClock;
+    double tempoGasto;
+    startClock = clock();
+    quickSort(vetor, 0, numeroElementos - 1);
+    endClock = clock();
+    tempoGasto = ((double) (endClock - startClock)) / CLOCKS_PER_SEC * 1000;
+    return tempoGasto;
 }
