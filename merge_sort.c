@@ -9,7 +9,7 @@
 #include "metodos.h"
 
 /**
- * @author Felipe Moreira
+ * @author Daniel Nogueira
  * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort, fragmentando o vetor em sub-vetores
  * @param vetor Vetor a ser ordenado
  * @param tamanhoVetor Tamanho do vetor
