@@ -26,4 +26,20 @@ void countingSortToRadix(int *vetor, int numeroElementos, int exp);
 
 void bucketSort(int *vetor, int numeroElementos);
 
+double insertionSortTime(int *vetor, int numeroElementos);
+
+double selectionSortTime(int *vetor, int numeroElementos);
+
+double bubbleSortTime(int *vetor, int numeroElementos);
+
+double mergeSortTime(int *vetor, int numeroElementos);
+
+double quickSortTime(int *vetor, int numeroElementos);
+
+double countingSortTime(int *vetor, int numeroElementos);
+
+double radixSortTime(int *vetor, int numeroElementos);
+
+double bucketSortTime(int *vetor, int numeroElementos);
+
 #endif //AED1_METODOS_ORDENACAO_METODOS_H

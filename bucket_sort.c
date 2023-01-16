@@ -5,14 +5,14 @@
  *  Norton Almeida - 202203526
  */
 #include "metodos.h"
-
+#include <time.h>
 /**
  * @author Daniel Nogueira
  * Ordena um vetor de inteiros utilizando o método de ordenação Bucket Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  */
-void bucketSort(int vetor[], int numeroElementos) {
+void bucketSort(int *vetor, int numeroElementos) {
     int maior = vetor[0];
     for (int i = 1; i < numeroElementos; i++) {
         if (vetor[i] > maior) {
@@ -37,4 +37,21 @@ void bucketSort(int vetor[], int numeroElementos) {
             bucket[i]--;
         }
     }
+}
+
+/**
+* @author Daniel Nogueira
+ * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * @param vetor Vetor a ser ordenado
+ * @param numeroElementos Tamanho do vetor
+ * @return Tempo gasto para ordenar o vetor
+ */
+double bucketSortTime(int *vetor, int numeroElementos) {
+    clock_t inicio, fim;
+    double tempoGasto;
+    inicio = clock();
+    bucketSort(vetor, numeroElementos);
+    fim = clock();
+    tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
+    return tempoGasto;
 }

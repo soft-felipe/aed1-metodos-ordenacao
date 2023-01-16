@@ -5,6 +5,7 @@
  *  Norton Almeida - 202203526
  */
 
+#include <time.h>
 #include "metodos.h"
 /**
  * @author Felipe Moreira
@@ -27,4 +28,21 @@ void insertionSort(int *vetor, int numeroElementos) {
         vetor[i + 1] = aux;
         j++;
     }
+}
+
+/**
+* @author Daniel Nogueira
+ * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * @param vetor Vetor a ser ordenado
+ * @param numeroElementos Tamanho do vetor
+ * @return Tempo gasto para ordenar o vetor
+ */
+double insertionSortTime(int *vetor, int numeroElementos) {
+    clock_t inicio, fim;
+    double tempoGasto;
+    inicio = clock();
+    insertionSort(vetor, numeroElementos);
+    fim = clock();
+    tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
+    return tempoGasto;
 }

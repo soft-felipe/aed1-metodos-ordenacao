@@ -4,6 +4,8 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
+
+#include <time.h>
 #include "metodos.h"
 
 /**
@@ -50,4 +52,21 @@ int particiona(int *vetor, int inicio, int fim) {
     vetor[inicio] = vetor[dir];
     vetor[dir] = pivo;
     return dir;
+}
+
+/**
+* @author Daniel Nogueira
+ * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * @param vetor Vetor a ser ordenado
+ * @param numeroElementos Tamanho do vetor
+ * @return Tempo gasto para ordenar o vetor
+ */
+double quickSortTime(int *vetor, int numeroElementos) {
+    clock_t startClock, endClock;
+    double tempoGasto;
+    startClock = clock();
+    quickSort(vetor, 0, numeroElementos - 1);
+    endClock = clock();
+    tempoGasto = ((double) (endClock - startClock)) / CLOCKS_PER_SEC * 1000;
+    return tempoGasto;
 }

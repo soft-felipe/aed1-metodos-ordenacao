@@ -8,7 +8,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 #include "metodos.h"
 
 #define NUMERO_VETORES 50
@@ -41,52 +40,28 @@ double calculaTempoExecucao(int *vetor, int tamanhoVetor, int algoritmo) {
     clock_t t_ini, t_fim;
     switch (algoritmo) {
         case 1:
-            t_ini = clock();
-            insertionSort(vetor, tamanhoVetor);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return insertionSortTime(vetor, tamanhoVetor);
 
         case 2:
-            t_ini = clock();
-            selectionSort(vetor, tamanhoVetor);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return selectionSortTime(vetor, tamanhoVetor);
 
         case 3:
-            t_ini = clock();
-            bubbleSort(vetor, tamanhoVetor);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return bubbleSortTime(vetor, tamanhoVetor);
 
         case 4:
-            t_ini = clock();
-            mergeSort(vetor, tamanhoVetor);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return mergeSortTime(vetor, tamanhoVetor);
 
         case 5:
-            t_ini = clock();
-            quickSort(vetor, 0, tamanhoVetor - 1);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return quickSortTime(vetor, tamanhoVetor);
 
         case 6:
-            t_ini = clock();
-            countingSort(vetor, tamanhoVetor);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return countingSortTime(vetor, tamanhoVetor);
 
         case 7:
-            t_ini = clock();
-            radixSort(vetor, tamanhoVetor);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return radixSortTime(vetor, tamanhoVetor);
 
         case 8:
-            t_ini = clock();
-            bucketSort(vetor, tamanhoVetor);
-            t_fim = clock();
-            return (double) (t_fim - t_ini) / CLOCKS_PER_SEC * 1000;
+            return bucketSortTime(vetor, tamanhoVetor);
     }
 }
 
@@ -105,21 +80,21 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
     printf("+-----------------------------------------------------------------------+\n");
     printf("|      ALGORITMO      |    NUMERO DE VETORES    |    TEMPO MEDIO (ms)   |\n");
     printf("|    INSERTION SORT   |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[1]);
+               tempos[1] / NUMERO_VETORES);
     printf("|    SELECTION SORT   |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[2]);
+               tempos[2] / NUMERO_VETORES);
     printf("|    BUBBLE SORT      |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[3]);
+               tempos[3] / NUMERO_VETORES);
     printf("|    MERGE SORT       |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[4]);
+               tempos[4] / NUMERO_VETORES);
     printf("|    QUICK SORT       |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[5]);
+               tempos[5] / NUMERO_VETORES);
     printf("|    COUNTING SORT    |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[6]);
+               tempos[6] / NUMERO_VETORES);
     printf("|    RADIX SORT       |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[7]);
+               tempos[7] / NUMERO_VETORES);
     printf("|    BUCKET SORT      |         %5.d           |    %15.4f    |\n", NUMERO_VETORES,
-               tempos[8]);
+               tempos[8] / NUMERO_VETORES);
     printf("+-----------------------------------------------------------------------+\n");
 }
 
@@ -130,8 +105,8 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
  */
 void geraResultados() {
     int escolheTamanho, escolheAlgoritmo;
-    int casosTeste = 9;
-    long int tamanhosPossiveis[] = {100, 1000, 5000, 10000, 1000, 100, 500, 100, 5};
+    int casosTeste = 8;
+    long int tamanhosPossiveis[] = {100, 1000, 1000, 1000, 1000, 1000, 2500, 1000};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS + 1] = {0.0};
 
