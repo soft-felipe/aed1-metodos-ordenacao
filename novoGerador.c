@@ -77,7 +77,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
     printf("+-------------------------------------------------------------------------------------+\n");
     printf("|                             TAMANHO DOS VETORES  = %6d                           |\n", tamanho);
     printf("+-------------------------------------------------------------------------------------+\n");
-    printf("|      ALGORITMO      |    N° DE VETORES    |   TEMPO TOTAL (ms)  |  TEMPO MEDIO (ms) |\n");
+    printf("|      ALGORITMO      |    N DE VETORES    |   TEMPO TOTAL (ms)  |  TEMPO MEDIO (ms) |\n");
     printf("|    INSERTION SORT   |      %5.d          |   %15.6f   |     %12.6f  |\n", NUMERO_VETORES,
            tempos[1], (tempos[1] / (NUMERO_VETORES * 1.0)));
     printf("|    SELECTION SORT   |      %5.d          |   %15.6f   |     %12.6f  |\n", NUMERO_VETORES,
@@ -159,20 +159,6 @@ void geraResultados() {
 int main() {
     // Utilizando para teste local
     geraResultados();
-
-    printf("Radix Sort: \n");
-    int tamanho = 100000;
-    int *vetor = gerarVetor(tamanho);
-    printf("Vetor desordenado: ");
-    for (int indice = 0; indice < tamanho; indice++) {
-        printf("%d ", vetor[indice]);
-    }
-    printf("\n");
-    radixSort(vetor, tamanho);
-    printf("Vetor ordenado: ");
-    for (int indice = 0; indice < tamanho; indice++) {
-        printf("%d ", vetor[indice]);
-    }
 
     return 0;
 }
