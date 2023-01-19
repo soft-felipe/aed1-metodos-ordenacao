@@ -43,7 +43,7 @@ void radixSort(int *vetor, int numeroElementos) {
             maior = vetor[i];
         }
     }
-    int count[maior + 1];
+    int count[10] = {0};
 
     for (int i = 0; i < maior; ++i) {
         count[i] = 0;
