@@ -35,7 +35,7 @@ void radixSort(int *vetor, int numeroElementos) {
  * @param casaDecimal Marca a casa decimal que está sendo ordenada
  */
  void countingSortToRadix(int *vetor, int numeroElementos, int casaDecimal) {
-    int vetorOrdenado[numeroElementos - 1];
+    int vetorOrdenado[numeroElementos];
     int maior = (vetor[0] / casaDecimal) % 10;
 
     for (int i = 1; i < numeroElementos; i++) {
@@ -53,7 +53,7 @@ void radixSort(int *vetor, int numeroElementos) {
         count[(vetor[i] / casaDecimal) % 10]++;
     }
 
-    for (int i = 1; i < 10; i++) {
+    for (int i = 1; i < maior; i++) {
         count[i] += count[i - 1];
     }
 
