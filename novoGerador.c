@@ -7,26 +7,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "metodos.h"
-
+#include "utilitarios.h"
 #define NUMERO_VETORES 50
 #define QUANTIDADE_ALGORITMOS 8
-
-/**
- * @author Daniel Nogueira
- * Gera vetores de inteiros aleatórios de acordo com o tamanho desejado
- * @param tamanho Tamanho do vetor a ser gerado
- * @return Vetor gerado
- */
-int *gerarVetor(int tamanho) {
-    int *vetor = (int *) malloc(tamanho * sizeof(int));
-    srand(time(NULL));
-    for (int i = 0; i < tamanho; i++) {
-        vetor[i] = rand();
-    }
-    return vetor;
-}
 
 /**
  * @author Felipe Moreira
@@ -77,7 +61,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
     printf("+-------------------------------------------------------------------------------------+\n");
     printf("|                             TAMANHO DOS VETORES  = %6d                           |\n", tamanho);
     printf("+-------------------------------------------------------------------------------------+\n");
-    printf("|      ALGORITMO      |    N DE VETORES    |   TEMPO TOTAL (ms)  |  TEMPO MEDIO (ms) |\n");
+    printf("|      ALGORITMO      |    N  DE VETORES    |   TEMPO TOTAL (ms)  |  TEMPO MEDIO (ms) |\n");
     printf("|    INSERTION SORT   |      %5.d          |   %15.6f   |     %12.6f  |\n", NUMERO_VETORES,
            tempos[1], (tempos[1] / (NUMERO_VETORES * 1.0)));
     printf("|    SELECTION SORT   |      %5.d          |   %15.6f   |     %12.6f  |\n", NUMERO_VETORES,
@@ -105,7 +89,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
 void geraResultados() {
     int escolheTamanho, escolheAlgoritmo;
     int casosTeste = 8;
-    long int tamanhosPossiveis[] = {100, 500, 1000, 1500, 2000, 5000, 7500, 10000};
+    long int tamanhosPossiveis[] = {100, 500, 1000, 150, 20, 50, 750, 100};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS + 1] = {0.0};
 
@@ -123,7 +107,7 @@ void geraResultados() {
             */
         for (int i = 0; i < NUMERO_VETORES; i++) {
             /* Montando os 50 vetores com valores aleatorios */
-            int *vetor = gerarVetor(tamanhosPossiveis[escolheTamanho]);
+            int *vetor = geraVetorAleatorio(tamanhosPossiveis[escolheTamanho]);
 
             for (int indice = 1; indice <= QUANTIDADE_ALGORITMOS; indice++) {
 
