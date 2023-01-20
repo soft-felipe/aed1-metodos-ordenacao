@@ -6,7 +6,7 @@
  */
 #include "metodos.h"
 #include <time.h>
-
+#include "utilitarios.h"
 
 /**
  * @author Felipe Moreira
@@ -15,13 +15,8 @@
  * @param numeroElementos Tamanho do vetor
  */
 void countingSort(int *vetor, int numeroElementos) {
-    int i, j, k, max = 0;
-
-    for (i = 0; i < numeroElementos; i++) {
-        if (vetor[i] > max) {
-            max = vetor[i];
-        }
-    }
+    int i, j, k;
+    int max = maiorElemento(vetor, numeroElementos);
 
     int aux[max + 1];
     for (i = 0; i <= max; i++) {

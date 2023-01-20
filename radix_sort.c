@@ -5,6 +5,7 @@
  *  Norton Almeida - 202203526
  */
 
+#include "utilitarios.h"
 #include <time.h>
 #include "metodos.h"
 
@@ -16,12 +17,8 @@
  * @param numeroElementos Tamanho do vetor
  */
 void radixSort(int *vetor, int numeroElementos) {
-    int maior = vetor[0];
-    for (int i = 1; i < numeroElementos; i++) {
-        if (vetor[i] > maior) {
-            maior = vetor[i];
-        }
-    }
+    int maior = maiorElemento(vetor, numeroElementos);
+
     for (int casaDecimal = 1; maior / casaDecimal > 0; casaDecimal *= 10) {
         countingSortToRadix(vetor, numeroElementos, casaDecimal);
     }

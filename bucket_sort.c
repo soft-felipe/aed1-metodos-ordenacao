@@ -4,6 +4,8 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
+
+#include "utilitarios.h"
 #include "metodos.h"
 #include <time.h>
 /**
@@ -13,12 +15,7 @@
  * @param numeroElementos Tamanho do vetor
  */
 void bucketSort(int *vetor, int numeroElementos) {
-    int maior = vetor[0];
-    for (int i = 1; i < numeroElementos; i++) {
-        if (vetor[i] > maior) {
-            maior = vetor[i];
-        }
-    }
+    int maior = maiorElemento(vetor, numeroElementos);
 
     int bucket[maior + 1];
 

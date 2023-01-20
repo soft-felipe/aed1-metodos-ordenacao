@@ -1,0 +1,35 @@
+#include <stdlib.h>
+#include <time.h>
+#include "utilitarios.h"
+#include <stdio.h>
+
+int *alocaMemoriaVetorInteiros(int tamanho) {
+    return (int *) malloc(tamanho * sizeof(int));
+}
+
+int *geraVetorAleatorio(int tamanho) {
+    int *vetor = alocaMemoriaVetorInteiros(tamanho);
+
+    srand(time(NULL));
+    for (int i = 0; i < tamanho; i++) {
+        vetor[i] = rand();
+    }
+    return vetor;
+}
+
+void printVetor(int *vetor, int numeroElementos) {
+    for (int i = 0; i < numeroElementos; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+}
+
+int maiorElemento(int *vetor, int tamanho) {
+    int maior = vetor[0];
+    for (int i = 1; i < tamanho; i++) {
+        if (vetor[i] > maior) {
+            maior = vetor[i];
+        }
+    }
+    return maior;
+}

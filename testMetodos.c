@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include <stdbool.h>
+#include "utilitarios.h"
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_DEFAULT "\033[0m"
