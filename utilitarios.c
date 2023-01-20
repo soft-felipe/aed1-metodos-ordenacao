@@ -2,6 +2,7 @@
 #include <time.h>
 #include "utilitarios.h"
 #include <stdio.h>
+#include "metodos.h"
 
 int *alocaMemoriaVetorInteiros(int tamanho) {
     return (int *) malloc(tamanho * sizeof(int));
@@ -32,4 +33,9 @@ int maiorElemento(int *vetor, int tamanho) {
         }
     }
     return maior;
+}
+
+double tempoDeExecucao(int *vetor, int numeroElementos, int indice) {
+    double (*metodos[])(int *, int) = {bubbleSortTime, insertionSortTime, selectionSortTime, mergeSortTime, quickSortTime, countingSortTime, radixSortTime, bucketSortTime};
+    return metodos[indice](vetor, numeroElementos);
 }

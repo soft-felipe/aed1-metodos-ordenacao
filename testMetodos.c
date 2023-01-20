@@ -1,8 +1,7 @@
 #include "metodos.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include <stdbool.h>
-#include "utilitarios.h"
+#include "test.h"
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_DEFAULT "\033[0m"
@@ -49,7 +48,7 @@ int testDesordenado(int algoritmo) {
 }
 
 
-bool testOrdenado(int algoritmo) {
+int testOrdenado(int algoritmo) {
     int vetor[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         switch (algoritmo) {
             case 1:
@@ -134,7 +133,7 @@ int testRandom(int algoritmo) {
     return 0;
 }
 
-void imprimeResultadoTest() {
+void imprimeResultadoTestMetodos() {
     int algoritmo = 1;
     int resultado = 0;
     while (algoritmo <= 8) {
@@ -159,9 +158,4 @@ void imprimeResultadoTest() {
         }
         algoritmo++;
     }
-}
-int main() {
-    imprimeResultadoTest();
-
-    return 0;
 }

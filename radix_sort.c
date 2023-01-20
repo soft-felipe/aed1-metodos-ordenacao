@@ -16,55 +16,39 @@
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  */
-void radixSort(int *vetor, int numeroElementos) {
-    int maior = maiorElemento(vetor, numeroElementos);
 
-    for (int casaDecimal = 1; maior / casaDecimal > 0; casaDecimal *= 10) {
-        countingSortToRadix(vetor, numeroElementos, casaDecimal);
-    }
-}
 
-/**
- * @author Daniel Nogueira
- * Counting Sort modificado para suportar uma ordenação de Radix Sort
- * @param vetor Vetor a ser ordenado
- * @param numeroElementos Tamanho do vetor
- * @param casaDecimal Marca a casa decimal que está sendo ordenada
- */
- void countingSortToRadix(int *vetor, int numeroElementos, int casaDecimal) {
-    int vetorOrdenado[numeroElementos - 1];
-    int maior = (vetor[0] / casaDecimal) % 10;
-
-    for (int i = 1; i < numeroElementos; i++) {
-        if (((vetor[i] / casaDecimal) % 10) > maior) {
-            maior = vetor[i];
-        }
-    }
+void countingSortToRadix(int arr[], int n, int pos)
+{
+    int result[n + 1];
     int count[10] = {0};
 
-    for (int i = 0; i < maior; ++i) {
-        count[i] = 0;
-    }
+    // count howmany numbers are present with digit 0-9 at given position
+    for (int i = 0; i < n; i++)
+        count[(arr[i] / pos) % 10]++;
 
-    for (int i = 0; i < numeroElementos; i++) {
-        count[(vetor[i] / casaDecimal) % 10]++;
-    }
-
-    for (int i = 1; i < 10; i++) {
+    // now do prefix sum of the count array
+    for (int i = 1; i < 10; i++)
         count[i] += count[i - 1];
+
+    // Place the elements in sorted order
+    for (int i = n - 1; i >= 0; i--) {
+        result[count[(arr[i] / pos) % 10] - 1] = arr[i];
+        count[(arr[i] / pos) % 10]--;
     }
 
-    for (int i = numeroElementos - 1; i >= 0; i--) {
-        vetorOrdenado[count[(vetor[i] / casaDecimal) % 10] - 1] = vetor[i];
-        count[(vetor[i] / casaDecimal) % 10]--;
-    }
-
-    for (int i = 0; i < numeroElementos; i++) {
-        vetor[i] = vetorOrdenado[i];
-    }
-
+    for (int i = 0; i < n; i++)
+        arr[i] = result[i];
 }
 
+void radixSort(int arr[], int n) {
+
+    int max_element = maiorElemento(arr, n);
+
+    // counting sort from the least significant digit to the most significant digit
+    for (int pos = 1; max_element / pos > 0; pos *= 10)
+        countingSortToRadix(arr, n, pos);
+}
 /**
 * @author Daniel Nogueira
 * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros

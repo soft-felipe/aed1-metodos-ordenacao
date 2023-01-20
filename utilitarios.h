@@ -9,4 +9,5 @@ int *alocaMemoriaVetorInteiros(int tamanho);
 
 int maiorElemento(int *vetor, int tamanho);
 
+double tempoDeExecucao(int *vetor, int numeroElementos, int indice);
 #endif //UTILITARIOS_H
