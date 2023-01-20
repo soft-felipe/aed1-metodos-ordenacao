@@ -23,7 +23,7 @@ int *gerarVetor(int tamanho) {
     int *vetor = (int *) malloc(tamanho * sizeof(int));
     srand(time(NULL));
     for (int i = 0; i < tamanho; i++) {
-        vetor[i] = rand() % 1000;
+        vetor[i] = rand();
     }
     return vetor;
 }
@@ -147,6 +147,7 @@ void geraResultados() {
                 */
                 guardaTemposPorAlgoritmo[indice] += calculaTempoExecucao(vetorAux, tamanhosPossiveis[escolheTamanho], indice);
             }
+            free(vetor);
         }
 
         imprimeResultadoPorTamanhoVetor(tamanhosPossiveis[escolheTamanho], guardaTemposPorAlgoritmo);
