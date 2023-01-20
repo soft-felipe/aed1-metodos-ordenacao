@@ -53,7 +53,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
 void geraResultados() {
     int escolheTamanho, escolheAlgoritmo;
     int casosTeste = 8;
-    long int tamanhosPossiveis[] = {1000, 5000, 1000, 150, 20, 50, 750, 100};
+    long int tamanhosPossiveis[] = {100, 1000, 10000, 30000, 50000, 100000, 150000, 300000};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS] = {0.0};
 
