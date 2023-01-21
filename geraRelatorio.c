@@ -68,7 +68,7 @@ void geraResultados() {
 
                 /* Copiando o vetor original (desornado) para um auxiliar,
                  * para garantir que sempre sera ordenado o mesmo vetor */
-                int vetorAux[tamanhosPossiveis[escolheTamanho]];
+                int *vetorAux = alocaMemoriaVetorInteiros(tamanhosPossiveis[escolheTamanho]);   
                 for (int j = 0; j < tamanhosPossiveis[escolheTamanho]; j++) {
                     vetorAux[j] = vetor[j];
                 }
