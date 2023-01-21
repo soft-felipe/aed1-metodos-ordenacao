@@ -10,4 +10,6 @@ int *alocaMemoriaVetorInteiros(int tamanho);
 int maiorElemento(int *vetor, int tamanho);
 
 double tempoDeExecucao(int *vetor, int numeroElementos, int indice);
+
+void zeraArrayDouble(double *array, int tamanho);
 #endif //UTILITARIOS_H

@@ -51,9 +51,9 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
  * Efetiva a produção do relatório de tempo de execução de cada algoritmo
  */
 void geraResultados() {
-    int escolheTamanho, escolheAlgoritmo;
+    int escolheTamanho;
     int casosTeste = 8;
-    long int tamanhosPossiveis[] = {100, 1000, 10000, 30000, 50000, 100000, 150000, 300000};
+    long int tamanhosPossiveis[] = {5000,  10000, 1000, 100, 300, 500, 100, 100, 300};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS] = {0.0};
 
@@ -99,9 +99,7 @@ void geraResultados() {
         }
 
         imprimeResultadoPorTamanhoVetor(tamanhosPossiveis[escolheTamanho], guardaTemposPorAlgoritmo);
-        for (escolheAlgoritmo = 0; escolheAlgoritmo < QUANTIDADE_ALGORITMOS; escolheAlgoritmo++) {
-            guardaTemposPorAlgoritmo[escolheAlgoritmo] = 0.0;
-        }
+        zeraArrayDouble(guardaTemposPorAlgoritmo, QUANTIDADE_ALGORITMOS);
     }
 }
 

@@ -36,6 +36,14 @@ int maiorElemento(int *vetor, int tamanho) {
 }
 
 double tempoDeExecucao(int *vetor, int numeroElementos, int indice) {
-    double (*metodos[])(int *, int) = {bubbleSortTime, insertionSortTime, selectionSortTime, mergeSortTime, quickSortTime, countingSortTime, radixSortTime, bucketSortTime};
+    double (*metodos[])(int *, int) = { insertionSortTime, selectionSortTime, bubbleSortTime, mergeSortTime, quickSortTime, countingSortTime, radixSortTime, bucketSortTime};
     return metodos[indice](vetor, numeroElementos);
+}
+
+void zeraArrayDouble(double *array, int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        array[i] = 0;
+    }
+
+
 }
