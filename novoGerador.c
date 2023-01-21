@@ -104,28 +104,7 @@ void geraResultados() {
 }
 
 int main() {
-    // Utilizando para teste local
     geraResultados();
-
-    int count = 0;
-    int *vetor = gerarVetor(10000);
-    printf("Vetor desordenado: ");
-    for (int i = 0; i < 10000; i++) {
-        printf("%d ", vetor[i]);
-        count++;
-    }
-    printf("\n");
-    printf("%d\n", count);
-    radixSort(vetor, 10000);
-    count = 0;
-    printf("\n");
-    printf("Vetor ordenado: ");
-    for (int i = 0; i < 10000; i++) {
-        printf("%d ", vetor[i]);
-        count++;
-    }
-    printf("\n");
-    printf("%d\n", count);
     return 0;
 }
 
