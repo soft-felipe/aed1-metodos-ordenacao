@@ -4,12 +4,16 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
+
 #include "metodos.h"
 #include <time.h>
 #include "utilitarios.h"
 
 /**
  * @author Felipe Moreira
+ * @referencia Slides dos algoritmos de distribuiçao apresentados em sala
+ *             Programaçao Descomplicada: Aula 123 - Counting Sort
+ *             Link video aula: https://www.youtube.com/watch?v=En8daEdcpJU&ab_channel=Programa%C3%A7%C3%A3oDescomplicada
  * Ordena um vetor de inteiros utilizando o método de ordenação Counting Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
@@ -37,7 +41,7 @@ void countingSort(int *vetor, int numeroElementos) {
 
 /**
 * @author Daniel Nogueira
- * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * Computa o tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  * @return Tempo gasto para ordenar o vetor

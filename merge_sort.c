@@ -10,27 +10,23 @@
 
 /**
  * @author Daniel Nogueira
+ * @referencia
  * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort, fragmentando o vetor em sub-vetores
  * @param vetor Vetor a ser ordenado
  * @param tamanhoVetor Tamanho do vetor
  */
-void mergeSort(int arr[], int l, int r)
-{
-    if (l < r) {
-        // Same as (l+r)/2, but avoids overflow for
-        // large l and h
-        int m = l + (r - l) / 2;
-
-        // Sort first and second halves
-        mergeSort(arr, l, m);
-        mergeSort(arr, m + 1, r);
-
-        merge(arr, l, m, r);
+void mergeSort(int vetor[], int inicio, int fim) {
+    if (inicio < fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        mergeSort(vetor, inicio, meio);
+        mergeSort(vetor, meio + 1, fim);
+        merge(vetor, inicio, meio, fim);
     }
 }
 
 /**
- * @author Felipe Moreira
+ * @author Daniel Nogueira
+ * @referencia
  * Ordena os sub-vetores
  * @param vetor Vetor a ser ordenado
  * @param esquerda Vetor da esquerda
@@ -38,56 +34,51 @@ void mergeSort(int arr[], int l, int r)
  * @param tamanhoEsquerda Tamanho do vetor da esquerda
  * @param tamanhoDireita Tamanho do vetor da direita
  */
-void merge(int arr[], int l, int m, int r)
-{
+void merge(int vetor[], int inicio, int meio, int fim) {
     int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
+    int n1 = meio - inicio + 1;
+    int n2 = fim - meio;
 
-    /* create temp arrays */
-    int L[n1], R[n2];
+    int esq[n1], dir[n2];
 
-    /* Copy data to temp arrays L[] and R[] */
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
+    for (i = 0; i < n1; i++) {
+        esq[i] = vetor[inicio + i];
+    }
 
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; // Initial index of first subarray
-    j = 0; // Initial index of second subarray
-    k = l; // Initial index of merged subarray
+    for (j = 0; j < n2; j++) {
+        dir[j] = vetor[meio + 1 + j];
+    }
+
+    i = 0;
+    j = 0;
+    k = inicio;
     while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
+        if (esq[i] <= dir[j]) {
+            vetor[k] = esq[i];
             i++;
-        }
-        else {
-            arr[k] = R[j];
+        } else {
+            vetor[k] = dir[j];
             j++;
         }
         k++;
     }
 
-    /* Copy the remaining elements of L[], if there
-    are any */
     while (i < n1) {
-        arr[k] = L[i];
+        vetor[k] = esq[i];
         i++;
         k++;
     }
 
-    /* Copy the remaining elements of R[], if there
-    are any */
     while (j < n2) {
-        arr[k] = R[j];
+        vetor[k] = dir[j];
         j++;
         k++;
     }
 }
+
 /**
-* @author Daniel Nogueira
- * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * @author Daniel Nogueira
+ * Computa o tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  * @return Tempo gasto para ordenar o vetor
