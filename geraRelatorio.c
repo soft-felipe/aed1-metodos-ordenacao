@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "utilitarios.h"
 #define NUMERO_VETORES 50
 #define QUANTIDADE_ALGORITMOS 8
@@ -53,7 +54,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
 void geraResultados() {
     int escolheTamanho;
     int casosTeste = 8;
-    long int tamanhosPossiveis[] = {5000,  10000, 1000, 100, 300, 500, 100, 100, 300};
+    long int tamanhosPossiveis[] = {10000,  10000, 1000, 100, 300, 500, 100, 100, 300};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS] = {0.0};
 
@@ -68,11 +69,9 @@ void geraResultados() {
 
                 /* Copiando o vetor original (desornado) para um auxiliar,
                  * para garantir que sempre sera ordenado o mesmo vetor */
-                int *vetorAux = alocaMemoriaVetorInteiros(tamanhosPossiveis[escolheTamanho]);   
-                for (int j = 0; j < tamanhosPossiveis[escolheTamanho]; j++) {
-                    vetorAux[j] = vetor[j];
-                }
+                int *vetorAux = alocaMemoriaVetorInteiros(tamanhosPossiveis[escolheTamanho]);
 
+                memcpy(vetorAux, vetor, tamanhosPossiveis[escolheTamanho] * sizeof(int));
                 /* Codigo por algoritmo:
                     * 0 - Insertion Sort
                     * 1 - Selection Sort
@@ -84,6 +83,7 @@ void geraResultados() {
                     * 7 - Bucket Sort
                 */
                 guardaTemposPorAlgoritmo[indice] += tempoDeExecucao(vetorAux, tamanhosPossiveis[escolheTamanho], indice);
+                free(vetorAux);
             }
             free(vetor);
         }

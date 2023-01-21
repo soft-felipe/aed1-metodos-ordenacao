@@ -162,6 +162,7 @@ void imprimeResultadoTestMetodos() {
     int resultado = 0;
 
     mapeiaAlgoritmos();
+
     while (algoritmo <= 8) {
         resultado = testDesordenado(algoritmo);
         if (resultado != 0) {
