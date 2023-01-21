@@ -79,7 +79,7 @@ void geraResultados() {
                     * 2 - Bubble Sort
                     * 3 - Merge Sort
                     * 4 - Quick Sort
-                    * 5 - Couting Sort
+                    * 5 - Counting Sort
                     * 6 - Radix Sort
                     * 7 - Bucket Sort
                 */
