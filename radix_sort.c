@@ -11,48 +11,50 @@
 
 /**
  * @author Daniel Nogueira
+ * @param vetor Vetor a ser ordenado
+ * @param numeroElementos Tamanho do vetor
+ * @param pos Digito a ser considerado para ordenacao
+ */
+void countingSortToRadix(int vetor[], int numeroElementos, int pos) {
+    int resultado[numeroElementos + 1];
+    int count[10] = {0};
+    
+    for (int i = 0; i < numeroElementos; i++) {
+        count[(vetor[i] / pos) % 10]++;
+    }
+    
+    for (int i = 1; i < 10; i++) {
+        count[i] += count[i - 1];
+    }
+
+    for (int i = numeroElementos - 1; i >= 0; i--) {
+        resultado[count[(vetor[i] / pos) % 10] - 1] = vetor[i];
+        count[(vetor[i] / pos) % 10]--;
+    }
+
+    for (int i = 0; i < numeroElementos; i++) {
+        vetor[i] = resultado[i];
+    }
+}
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
  * Ordena um vetor de inteiros utilizando o método de ordenação Radix Sort
  * que implementa o Counting Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  */
-
-void countingSortToRadix(int arr[], int n, int pos)
-{
-    int result[n + 1];
-    int count[10] = {0};
-
-    // count howmany numbers are present with digit 0-9 at given position
-    for (int i = 0; i < n; i++)
-        count[(arr[i] / pos) % 10]++;
-
-
-    // now do prefix sum of the count array
-    for (int i = 1; i < 10; i++)
-
-        count[i] += count[i - 1];
-
-    // Place the elements in sorted order
-    for (int i = n - 1; i >= 0; i--) {
-        result[count[(arr[i] / pos) % 10] - 1] = arr[i];
-        count[(arr[i] / pos) % 10]--;
+void radixSort(int vetor[], int numeroElementos) {
+    int max = maiorElemento(vetor, numeroElementos);
+    for (int pos = 1; max / pos > 0; pos *= 10) {
+        countingSortToRadix(vetor, numeroElementos, pos);
     }
-
-    for (int i = 0; i < n; i++)
-        arr[i] = result[i];
 }
 
-void radixSort(int arr[], int n) {
-
-    int max_element = maiorElemento(arr, n);
-
-    // counting sort from the least significant digit to the most significant digit
-    for (int pos = 1; max_element / pos > 0; pos *= 10)
-        countingSortToRadix(arr, n, pos);
-}
 /**
 * @author Daniel Nogueira
-* Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+* Computa o tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
 * @param vetor Vetor a ser ordenado
 * @param numeroElementos Tamanho do vetor
 * @return Tempo gasto para ordenar o vetor

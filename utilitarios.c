@@ -44,6 +44,4 @@ void zeraArrayDouble(double *array, int tamanho) {
     for (int i = 0; i < tamanho; i++) {
         array[i] = 0;
     }
-
-
 }

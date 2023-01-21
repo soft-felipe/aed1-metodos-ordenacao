@@ -8,8 +8,10 @@
 #include "utilitarios.h"
 #include "metodos.h"
 #include <time.h>
+
 /**
  * @author Daniel Nogueira
+ * @referencia
  * Ordena um vetor de inteiros utilizando o método de ordenação Bucket Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
@@ -38,7 +40,7 @@ void bucketSort(int *vetor, int numeroElementos) {
 
 /**
 * @author Daniel Nogueira
- * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * Computa o tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  * @return Tempo gasto para ordenar o vetor

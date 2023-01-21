@@ -58,21 +58,12 @@ void geraResultados() {
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS] = {0.0};
 
     for (escolheTamanho = 0; escolheTamanho < casosTeste; escolheTamanho++) {
-        /* Tamanhos possiveis por codigo:
-                * 0 - 100
-                * 1 - 1000
-                * 2 - 5000
-                * 3 - 10000
-                * 4 - 20000
-                * 5 - 50000
-                * 6 - 75000
-                * 7 - 100000
-                * 8 - 200000
-            */
+
+        /* Montando os 50 vetores com valores aleatorios */
         for (int i = 0; i < NUMERO_VETORES; i++) {
-            /* Montando os 50 vetores com valores aleatorios */
             int *vetor = geraVetorAleatorio(tamanhosPossiveis[escolheTamanho]);
 
+            /* Executando os 8 algoritmos de ordenacao */
             for (int indice = 0; indice < QUANTIDADE_ALGORITMOS; indice++) {
 
                 /* Copiando o vetor original (desornado) para um auxiliar,
@@ -82,14 +73,13 @@ void geraResultados() {
                     vetorAux[j] = vetor[j];
                 }
 
-                /* Executando os 8 algoritmos de ordenacao */
                 /* Codigo por algoritmo:
                     * 0 - Insertion Sort
                     * 1 - Selection Sort
                     * 2 - Bubble Sort
                     * 3 - Merge Sort
                     * 4 - Quick Sort
-                    * 5 - Couting Sort
+                    * 5 - Counting Sort
                     * 6 - Radix Sort
                     * 7 - Bucket Sort
                 */

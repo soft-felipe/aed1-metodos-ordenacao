@@ -4,11 +4,13 @@
  *  Daniel Nogueira - 202105024
  *  Norton Almeida - 202203526
  */
+
 #include "metodos.h"
 #include <time.h>
 
 /**
  * @author Felipe Moreira
+ * @referencia Feito em sala, durante a aula com auxilio dos slides
  * Ordena um vetor de inteiros utilizando o método de ordenação Bubble Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
@@ -28,7 +30,7 @@ void bubbleSort(int *vetor, int numeroElementos) {
 
 /**
 * @author Daniel Nogueira
- * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * Computa o tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  * @return Tempo gasto para ordenar o vetor

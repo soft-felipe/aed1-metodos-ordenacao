@@ -10,6 +10,9 @@
 
 /**
  * @author Felipe Moreira
+ * @referencia Slides dos algoritmos de distribuiçao apresentados em sala
+ *             Programaçao Descomplicada: Aula 52 - Quick Sort
+ *             Link video aula: https://www.youtube.com/watch?v=spywQ2ix_Co&ab_channel=Programa%C3%A7%C3%A3oDescomplicada
  * Ordena um vetor de inteiros utilizando o método de ordenação Quick Sort
  * @param vetor Vetor a ser ordenado
  * @param inicio Primeira posiçao do vetor
@@ -56,7 +59,7 @@ int particiona(int *vetor, int inicio, int fim) {
 
 /**
 * @author Daniel Nogueira
- * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
+ * Computa o tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  * @return Tempo gasto para ordenar o vetor
