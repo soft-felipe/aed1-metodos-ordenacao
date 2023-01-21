@@ -1,7 +1,6 @@
 #include "test.h"
 #include "utilitarios.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 
 #define ANSI_COLOR_RED "\x1b[31m"
@@ -29,17 +28,7 @@ void testMaiorElementoOrdenado() {
 }
 
 
-
-void showVetorAleatorioTest() {
-    int *vetor = geraVetorAleatorio(10);
-    printf("Vetor aleatorio de tamanho %d:\n", 10);
-    printVetor(vetor, 10);
-    free(vetor);
-}
-
-
 void imprimeResultadoTestUtilitarios() {
     testMaiorElementoDesordenado();
     testMaiorElementoOrdenado();
-    showVetorAleatorioTest();
 }
