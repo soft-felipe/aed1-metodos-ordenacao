@@ -8,9 +8,9 @@ void selectionSort(int *vetor, int numeroElementos);
 
 void bubbleSort(int *vetor, int numeroElementos);
 
-void mergeSort(int *vetor, int tamanhoVetor);
+void mergeSort (int *vetor, int l, int r);
 
-void merge(int *vetor, int *esquerda, int *direita, int tamanhoEsquerda, int tamanhoDireita);
+void merge(int *vetor, int l, int m, int r);
 
 void quickSort(int *vetor, int inicio, int fim);
 

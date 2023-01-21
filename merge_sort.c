@@ -14,25 +14,19 @@
  * @param vetor Vetor a ser ordenado
  * @param tamanhoVetor Tamanho do vetor
  */
-void mergeSort(int *vetor, int tamanhoVetor) {
-    if (tamanhoVetor < 2) {
-        return;
-    }
+void mergeSort(int arr[], int l, int r)
+{
+    if (l < r) {
+        // Same as (l+r)/2, but avoids overflow for
+        // large l and h
+        int m = l + (r - l) / 2;
 
-    int meio = (double)tamanhoVetor * 1.0 / 2.0;
-    int esquerda[meio];
-    int direita[tamanhoVetor - meio];
+        // Sort first and second halves
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
 
-    for (int i = 0; i < meio; i++) {
-        esquerda[i] = vetor[i];
+        merge(arr, l, m, r);
     }
-    for (int i = meio; i < tamanhoVetor; i++) {
-        direita[i - meio] = vetor[i];
-    }
-
-    mergeSort(vetor, meio);
-    mergeSort(vetor, tamanhoVetor - meio);
-    merge(vetor, esquerda, direita, meio, tamanhoVetor - meio);
 }
 
 /**
@@ -44,23 +38,53 @@ void mergeSort(int *vetor, int tamanhoVetor) {
  * @param tamanhoEsquerda Tamanho do vetor da esquerda
  * @param tamanhoDireita Tamanho do vetor da direita
  */
-void merge(int *vetor, int *esquerda, int *direita, int tamanhoEsquerda, int tamanhoDireita) {
-    int i = 0, j = 0, k = 0;
-    while (i < tamanhoEsquerda && j < tamanhoDireita) {
-        if (esquerda[i] <= direita[j]) {
-            vetor[k++] = esquerda[i++];
-        } else {
-            vetor[k++] = direita[j++];
+void merge(int arr[], int l, int m, int r)
+{
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    /* create temp arrays */
+    int L[n1], R[n2];
+
+    /* Copy data to temp arrays L[] and R[] */
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    /* Merge the temp arrays back into arr[l..r]*/
+    i = 0; // Initial index of first subarray
+    j = 0; // Initial index of second subarray
+    k = l; // Initial index of merged subarray
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
         }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
     }
-    while (i < tamanhoEsquerda) {
-        vetor[k++] = esquerda[i++];
+
+    /* Copy the remaining elements of L[], if there
+    are any */
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
     }
-    while (j < tamanhoDireita) {
-        vetor[k++] = direita[j++];
+
+    /* Copy the remaining elements of R[], if there
+    are any */
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
     }
 }
-
 /**
 * @author Daniel Nogueira
  * Computao tempo gasto pelo método de ordenação para ordenar um vetor de inteiros
@@ -72,7 +96,7 @@ double mergeSortTime(int *vetor, int numeroElementos) {
     clock_t inicio, fim;
     double tempoGasto;
     inicio = clock();
-    mergeSort(vetor, numeroElementos);
+    mergeSort(vetor,0, numeroElementos - 1);
     fim = clock();
     tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
     return tempoGasto;
