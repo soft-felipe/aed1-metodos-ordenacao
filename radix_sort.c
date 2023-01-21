@@ -17,7 +17,6 @@
  * @param numeroElementos Tamanho do vetor
  */
 
-
 void countingSortToRadix(int arr[], int n, int pos)
 {
     int result[n + 1];
@@ -27,8 +26,10 @@ void countingSortToRadix(int arr[], int n, int pos)
     for (int i = 0; i < n; i++)
         count[(arr[i] / pos) % 10]++;
 
+
     // now do prefix sum of the count array
     for (int i = 1; i < 10; i++)
+
         count[i] += count[i - 1];
 
     // Place the elements in sorted order
