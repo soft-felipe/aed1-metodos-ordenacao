@@ -146,14 +146,14 @@ int testRandom(int algoritmo) {
 
 void mapeiaAlgoritmos() {
     printf("Codigos por Algoritmo de Ordenaçao:\n");
-    printf("1 - INSERTION SORT\n");
-    printf("2 - SELECTION SORT\n");
-    printf("3 - BUBBLE SORT\n");
-    printf("4 - MERGE SORT\n");
-    printf("5 - QUICK SORT\n");
-    printf("6 - COUNTING SORT\n");
-    printf("7 - RADIX SORT\n");
-    printf("8 - BUCKET SORT\n\n");
+    printf("0 - INSERTION SORT\n");
+    printf("1 - SELECTION SORT\n");
+    printf("2 - BUBBLE SORT\n");
+    printf("3 - MERGE SORT\n");
+    printf("4 - QUICK SORT\n");
+    printf("5 - COUNTING SORT\n");
+    printf("6 - RADIX SORT\n");
+    printf("7 - BUCKET SORT\n\n");
 }
 
 /* Imprime os resultados dos testes com os algoritmos */
