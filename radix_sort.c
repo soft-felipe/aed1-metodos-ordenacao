@@ -8,6 +8,7 @@
 #include "utilitarios.h"
 #include <time.h>
 #include "metodos.h"
+#include <stdlib.h>
 
 /**
  * @author Daniel Nogueira
@@ -16,7 +17,7 @@
  * @param pos Digito a ser considerado para ordenacao
  */
 void countingSortToRadix(int vetor[], int numeroElementos, int pos) {
-    int resultado[numeroElementos + 1];
+    int *resultado = alocaMemoriaVetorInteiros(numeroElementos + 1);
     int count[10] = {0};
     
     for (int i = 0; i < numeroElementos; i++) {
@@ -35,6 +36,8 @@ void countingSortToRadix(int vetor[], int numeroElementos, int pos) {
     for (int i = 0; i < numeroElementos; i++) {
         vetor[i] = resultado[i];
     }
+
+    free(resultado);
 }
 
 /**
