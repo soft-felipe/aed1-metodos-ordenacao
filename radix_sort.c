@@ -9,6 +9,7 @@
 #include <time.h>
 #include "metodos.h"
 #include <stdlib.h>
+#include <string.h>
 
 /**
  * @author Daniel Nogueira
@@ -33,9 +34,7 @@ void countingSortToRadix(int vetor[], int numeroElementos, int pos) {
         count[(vetor[i] / pos) % 10]--;
     }
 
-    for (int i = 0; i < numeroElementos; i++) {
-        vetor[i] = resultado[i];
-    }
+    memcpy(vetor, resultado, numeroElementos * sizeof(int));
 
     free(resultado);
 }
