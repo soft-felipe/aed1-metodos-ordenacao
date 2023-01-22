@@ -43,7 +43,10 @@ void quick(int *vetor, int inicio, int fim) {
  * @param fim Ultima posiçao do vetor
  */
 int particiona(int *vetor, int inicio, int fim) {
-    int esq = inicio, dir = fim, pivo = vetor[inicio], aux;
+    int esq = inicio;
+    int dir = fim;
+    int pivo = vetor[inicio];
+    int aux;
 
     while (esq < dir) {
 
