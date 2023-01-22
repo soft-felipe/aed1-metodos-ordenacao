@@ -33,7 +33,7 @@ void bucketSort(int *vetor, int numeroElementos);
 
 struct bucket *iniciaBucket();
 
-struct elemento *iniciaElemento();
+struct elemento *iniciaElemento(int valor);
 
 void adicionaElemento(struct bucket *bucket, struct elemento *elementoAnterior, struct elemento *elemento);
 

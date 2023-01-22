@@ -41,7 +41,7 @@ Bucket *iniciaBucket() {
  * Inicia um elemento
  * @return elemento
  */
-Elemento *iniciaElemento() {
+Elemento *iniciaElemento(int valor) {
     Elemento *elemento = (Elemento *) malloc(sizeof(Elemento));
     elemento->valor = 0;
     elemento->proximo = NULL;
@@ -129,6 +129,8 @@ void adicionaElementoNaPrimeiraPosicaoBucket(Bucket *bucket, Elemento *elemento)
      }
      return buckets;
  }
+
+
 
 /**
  * @author Daniel Nogueira
