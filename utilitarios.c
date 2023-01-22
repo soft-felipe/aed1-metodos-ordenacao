@@ -8,6 +8,10 @@ int *alocaMemoriaVetorInteiros(int tamanho) {
     return (int *) malloc(tamanho * sizeof(int));
 }
 
+void liberaMemoria(int *vetor) {
+    free(vetor);
+}
+
 int *geraVetorAleatorio(int tamanho) {
     int *vetor = alocaMemoriaVetorInteiros(tamanho);
 

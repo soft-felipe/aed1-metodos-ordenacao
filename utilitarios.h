@@ -7,6 +7,8 @@ int *geraVetorAleatorio(int numeroElementos);
 
 int *alocaMemoriaVetorInteiros(int tamanho);
 
+void liberaMemoria(int *vetor);
+
 int maiorElemento(int *vetor, int tamanho);
 
 double tempoDeExecucao(int *vetor, int numeroElementos, int indice);
