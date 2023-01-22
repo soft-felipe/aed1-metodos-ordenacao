@@ -8,6 +8,7 @@
 #include "metodos.h"
 #include <time.h>
 #include "utilitarios.h"
+#include <stdlib.h>
 
 /**
  * @author Felipe Moreira
@@ -22,7 +23,7 @@ void countingSort(int *vetor, int numeroElementos) {
     int i, j, k;
     int max = maiorElemento(vetor, numeroElementos);
 
-    int aux[max + 1];
+    int *aux = alocaMemoriaVetorInteiros(max + 1);
     for (i = 0; i <= max; i++) {
         aux[i] = 0;
     }
@@ -37,6 +38,8 @@ void countingSort(int *vetor, int numeroElementos) {
             i++;
         }
     }
+
+    free(aux);
 }
 
 /**
