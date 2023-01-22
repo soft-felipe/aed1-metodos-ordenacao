@@ -33,7 +33,7 @@ int testDesordenado(int algoritmo) {
                 mergeSort(vetorDesordenado, 0, 9);
                 break;
             case 5:
-                quickSort(vetorDesordenado, 0, 9);
+                quickSort(vetorDesordenado, 10);
                 break;
             case 6:
                 countingSort(vetorDesordenado, 10);
@@ -72,7 +72,7 @@ int testOrdenado(int algoritmo) {
                 mergeSort(vetor, 0, 9);
                 break;
             case 5:
-                quickSort(vetor, 0, 9);
+                quickSort(vetor, 10);
                 break;
             case 6:
                 countingSort(vetor, 10);
@@ -120,7 +120,7 @@ int testRandom(int algoritmo) {
             mergeSort(vetor, 0, 9);
             break;
         case 5:
-            quickSort(vetor, 0, 9);
+            quickSort(vetor, 10);
             break;
         case 6:
             countingSort(vetor, 10);

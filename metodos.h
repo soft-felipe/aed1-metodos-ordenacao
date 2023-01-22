@@ -11,7 +11,9 @@ void mergeSort (int *vetor, int l, int r);
 
 void merge(int *vetor, int l, int m, int r);
 
-void quickSort(int *vetor, int inicio, int fim);
+void quickSort(int *vetor, int tamanho);
+
+void quick(int *vetor, int inicio, int fim);
 
 int particiona(int *vetor, int inicio, int fim);
 
