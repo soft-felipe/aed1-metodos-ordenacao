@@ -7,6 +7,8 @@
 
 #include <time.h>
 #include "metodos.h"
+#include "utilitarios.h"
+#include <stdlib.h>
 
 /**
  * Encapsula o metodo mergeSort, recebendo somente o vetor e o seu tamanho
@@ -49,7 +51,8 @@ void merge(int vetor[], int inicio, int meio, int fim) {
     int n1 = meio - inicio + 1;
     int n2 = fim - meio;
 
-    int esq[n1], dir[n2];
+    int *esq = alocaMemoriaVetorInteiros(n1);
+    int *dir = alocaMemoriaVetorInteiros(n2);
 
     for (i = 0; i < n1; i++) {
         esq[i] = vetor[inicio + i];
@@ -84,6 +87,9 @@ void merge(int vetor[], int inicio, int meio, int fim) {
         j++;
         k++;
     }
+
+    free(esq);
+    free(dir);
 }
 
 /**
