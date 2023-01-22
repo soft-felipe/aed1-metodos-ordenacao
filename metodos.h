@@ -29,6 +29,10 @@ void countingSortToRadix(int *vetor, int numeroElementos, int exp);
 
 void bucketSort(int *vetor, int numeroElementos);
 
+typedef struct bucket Bucket;
+
+typedef struct elementos Elemento;
+
 double insertionSortTime(int *vetor, int numeroElementos);
 
 double selectionSortTime(int *vetor, int numeroElementos);

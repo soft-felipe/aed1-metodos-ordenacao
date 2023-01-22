@@ -9,6 +9,16 @@
 #include "metodos.h"
 #include <time.h>
 
+struct elemento {
+    int valor;
+    struct elemento *proximo;
+};
+
+struct bucket {
+    int tamanho;
+    int *elementos;
+};
+
 /**
  * @author Daniel Nogueira
  * @referencia
