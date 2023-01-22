@@ -116,6 +116,20 @@ void adicionaElementoNaPrimeiraPosicaoBucket(Bucket *bucket, Elemento *elemento)
     adicionaElementoNaUltimaPosicaoBucket(bucket, elemento);
  }
 
+ Bucket **alocaMemoriaBuckets(int quantidadeBuckets) {
+     Bucket **buckets = (Bucket **) malloc(quantidadeBuckets * sizeof (Bucket *));
+
+     return buckets;
+ }
+
+ Bucket **iniciaBuckets(int quantidadeBuckets) {
+     Bucket **buckets = alocaMemoriaBuckets(quantidadeBuckets);
+     for (int i = 0; i < quantidadeBuckets; i++) {
+         buckets[i] = iniciaBucket();
+     }
+     return buckets;
+ }
+
 /**
  * @author Daniel Nogueira
  * @referencia

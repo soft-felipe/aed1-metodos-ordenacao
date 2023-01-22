@@ -45,6 +45,10 @@ void adicionaElementoNaUltimaPosicaoBucket(struct bucket *bucket, struct element
 
 void adicionaElementoBucket(struct bucket *bucket, struct elemento *elemento);
 
+struct bucket **alocaMemoriaBuckets(int quantidadeBuckets);
+
+struct bucket **iniciaBuckets(int quantidadeBuckets);
+
 typedef struct bucket Bucket;
 
 typedef struct elemento Elemento;
