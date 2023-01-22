@@ -31,7 +31,7 @@ void bucketSort(int *vetor, int numeroElementos);
 
 typedef struct bucket Bucket;
 
-typedef struct elementos Elemento;
+typedef struct elemento Elemento;
 
 double insertionSortTime(int *vetor, int numeroElementos);
 

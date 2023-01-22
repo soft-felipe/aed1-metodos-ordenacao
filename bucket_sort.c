@@ -18,7 +18,6 @@ struct elemento {
 struct bucket {
     int tamanho;
     int *primeiroElemento;
-    int *elementos;
 };
 
 /**
@@ -31,11 +30,23 @@ Bucket *iniciaBucket() {
     Bucket *bucket = (Bucket *) malloc(sizeof(Bucket));
     bucket->tamanho = 0;
     bucket->primeiroElemento = NULL;
-    bucket->elementos = NULL;
 
     return bucket;
 }
 
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Inicia um elemento
+ * @return elemento
+ */
+Elemento *iniciaElemento() {
+    Elemento *elemento = (Elemento *) malloc(sizeof(Elemento));
+    elemento->valor = 0;
+    elemento->proximo = NULL;
+
+    return elemento;
+}
 
 /**
  * @author Daniel Nogueira
