@@ -8,6 +8,7 @@
 #include "utilitarios.h"
 #include "metodos.h"
 #include <time.h>
+#include <stdlib.h>
 
 struct elemento {
     int valor;
@@ -16,8 +17,25 @@ struct elemento {
 
 struct bucket {
     int tamanho;
+    int *primeiroElemento;
     int *elementos;
 };
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Inicia um bucket
+ *@return bucket
+ */
+Bucket *iniciaBucket() {
+    Bucket *bucket = (Bucket *) malloc(sizeof(Bucket));
+    bucket->tamanho = 0;
+    bucket->primeiroElemento = NULL;
+    bucket->elementos = NULL;
+
+    return bucket;
+}
+
 
 /**
  * @author Daniel Nogueira
