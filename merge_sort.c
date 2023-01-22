@@ -9,17 +9,27 @@
 #include "metodos.h"
 
 /**
+ * Encapsula o metodo mergeSort, recebendo somente o vetor e o seu tamanho
+ * @param vetor
+ * @param tamanho
+ */
+void mergeSort(int *vetor, int tamanho) {
+    sort(vetor, 0, tamanho - 1);
+}
+
+
+/**
  * @author Daniel Nogueira
  * @referencia
  * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort, fragmentando o vetor em sub-vetores
  * @param vetor Vetor a ser ordenado
  * @param tamanhoVetor Tamanho do vetor
  */
-void mergeSort(int vetor[], int inicio, int fim) {
+void sort(int vetor[], int inicio, int fim) {
     if (inicio < fim) {
         int meio = inicio + (fim - inicio) / 2;
-        mergeSort(vetor, inicio, meio);
-        mergeSort(vetor, meio + 1, fim);
+        sort(vetor, inicio, meio);
+        sort(vetor, meio + 1, fim);
         merge(vetor, inicio, meio, fim);
     }
 }
@@ -87,7 +97,7 @@ double mergeSortTime(int *vetor, int numeroElementos) {
     clock_t inicio, fim;
     double tempoGasto;
     inicio = clock();
-    mergeSort(vetor,0, numeroElementos - 1);
+    mergeSort(vetor, numeroElementos - 1);
     fim = clock();
     tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
     return tempoGasto;

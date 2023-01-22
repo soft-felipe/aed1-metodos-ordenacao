@@ -7,7 +7,9 @@ void selectionSort(int *vetor, int numeroElementos);
 
 void bubbleSort(int *vetor, int numeroElementos);
 
-void mergeSort (int *vetor, int l, int r);
+void mergeSort(int *vetor, int tamanho);
+
+void sort(int *vetor, int inicio, int fim);
 
 void merge(int *vetor, int l, int m, int r);
 
