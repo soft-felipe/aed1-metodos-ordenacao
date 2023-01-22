@@ -1,6 +1,8 @@
 #ifndef AED1_METODOS_ORDENACAO_METODOS_H
 #define AED1_METODOS_ORDENACAO_METODOS_H
 
+#include <stdbool.h>
+
 void insertionSort(int *vetor, int numeroElementos);
 
 void selectionSort(int *vetor, int numeroElementos);
@@ -28,6 +30,20 @@ void radixSort(int *vetor, int numeroElementos);
 void countingSortToRadix(int *vetor, int numeroElementos, int exp);
 
 void bucketSort(int *vetor, int numeroElementos);
+
+struct bucket *iniciaBucket();
+
+struct elemento *iniciaElemento();
+
+void adicionaElemento(struct bucket *bucket, struct elemento *elementoAnterior, struct elemento *elemento);
+
+bool bucketVazio(struct bucket *bucket);
+
+void adicionaElementoNaPrimeiraPosicaoBucket(struct bucket *bucket, struct elemento *elemento);
+
+void adicionaElementoNaUltimaPosicaoBucket(struct bucket *bucket, struct elemento *elemento);
+
+void adicionaElementoBucket(struct bucket *bucket, struct elemento *elemento);
 
 typedef struct bucket Bucket;
 

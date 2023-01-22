@@ -9,6 +9,7 @@
 #include "metodos.h"
 #include <time.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 struct elemento {
     int valor;
@@ -17,7 +18,7 @@ struct elemento {
 
 struct bucket {
     int tamanho;
-    int *primeiroElemento;
+    struct elemento *primeiroElemento;
 };
 
 /**
@@ -47,6 +48,73 @@ Elemento *iniciaElemento() {
 
     return elemento;
 }
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Adiciona um elemento como proximo de outro elemento
+ * @param elemenetoAnterior Elemento anterior
+ * @param elemento Elemento a ser adicionado
+ */
+void adicionaElemento(Bucket *bucket, Elemento *elementoAnterior, Elemento *elemento) {
+    elementoAnterior->proximo = elemento;
+    bucket->tamanho++;
+}
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Verifica se um bucket esta vazio
+ * @param bucket Bucket a ser verificado
+ * @return true se o bucket estiver vazio, false caso contrario
+ */
+bool bucketVazio(Bucket *bucket) {
+    return bucket->tamanho == 0 && bucket->primeiroElemento == NULL;
+}
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Adiciona um elemento na primeira posicao de um bucket
+ * @param bucket Bucket a ser adicionado o elemento
+ * @param elemento Elemento a ser adicionado
+ */
+
+void adicionaElementoNaPrimeiraPosicaoBucket(Bucket *bucket, Elemento *elemento) {
+    bucket->primeiroElemento = elemento;
+    bucket->tamanho++;
+}
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Adiciona um elemento na última posição de um bucket
+ * @param bucket Bucket a ser adicionado o elemento
+ * @param elemento Elemento a ser adicionado
+ */
+ void adicionaElementoNaUltimaPosicaoBucket(Bucket *bucket, Elemento *elemento) {
+     if (bucketVazio(bucket)) {
+         adicionaElementoNaPrimeiraPosicaoBucket(bucket, elemento);
+     } else {
+         Elemento *elementoCorrente = bucket->primeiroElemento;
+         while (elementoCorrente->proximo != NULL) {
+             elementoCorrente = elementoCorrente->proximo;
+         }
+            adicionaElemento(bucket,elementoCorrente, elemento);
+     }
+ }
+
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Adiciona um elemento ao bucket
+ * @param bucket Bucket a ser adicionado o elemento
+ * @param elemento Elemento a ser adicionado
+ */
+ void adicionaElementoBucket(Bucket *bucket, Elemento *elemento) {
+    adicionaElementoNaUltimaPosicaoBucket(bucket, elemento);
+ }
 
 /**
  * @author Daniel Nogueira
