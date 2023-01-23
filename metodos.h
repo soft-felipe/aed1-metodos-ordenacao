@@ -23,8 +23,6 @@ int particiona(int *vetor, int inicio, int fim);
 
 void countingSort(int *vetor, int numeroElementos);
 
-void countingSort(int *vetor, int numeroElementos);
-
 void radixSort(int *vetor, int numeroElementos);
 
 void countingSortToRadix(int *vetor, int numeroElementos, int exp);

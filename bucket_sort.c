@@ -57,7 +57,6 @@ void setElementoAnterior(struct elemento *elemento, struct elemento *elementoAnt
 
 void setPrimeiroElemento(struct bucket *bucket, struct elemento *elemento) {
     bucket->primeiroElemento = elemento;
-    bucket->tamanho++;
 }
 
 void setTamanhoBucket(struct bucket *bucket, int tamanho) {
@@ -115,6 +114,7 @@ bool bucketVazio(Bucket *bucket) {
  void adicionaElementoNaUltimaPosicaoBucket(Bucket *bucket, Elemento *elemento) {
      if (bucketVazio(bucket)) {
          setPrimeiroElemento(bucket, elemento);
+         bucket->tamanho++;
          return;
      } else {
          Elemento *elementoCorrente = bucket->primeiroElemento;
