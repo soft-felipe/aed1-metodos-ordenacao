@@ -31,7 +31,7 @@ void countingSortToRadix(int *vetor, int numeroElementos, int exp);
 
 void bucketSort(int *vetor, int numeroElementos);
 
-void insertionSortToBucket(struct elemento *elemento, int numeroElementos);
+void insertionSortToBucket(struct bucket *bucket);
 
 double insertionSortTime(int *vetor, int numeroElementos);
 

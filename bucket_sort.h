@@ -28,5 +28,15 @@ struct bucket **iniciaBuckets(int quantidadeBuckets);
 
 void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, struct elemento *elemento, int posicao);
 
+int getValorElemento(struct elemento *elemento);
+
+struct elemento *getProximoElemento(struct elemento *elemento);
+
+struct elemento *getAnteriorElemento(struct elemento *elemento);
+
+struct elemento *getPrimeiroElemento(struct bucket *bucket);
+
+int getTamanhoBucket(struct bucket *bucket);
+
 
 #endif //BUCKET_SORT_H

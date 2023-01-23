@@ -1,7 +1,7 @@
 #ifndef UTILITARIOS_H
 #define UTILITARIOS_H
 
-void printVetor(int *vetor, int numeroElementos);
+int printVetor(int *vetor, int numeroElementos);
 
 int *geraVetorAleatorio(int numeroElementos);
 

@@ -22,11 +22,15 @@ int *geraVetorAleatorio(int tamanho) {
     return vetor;
 }
 
-void printVetor(int *vetor, int numeroElementos) {
+int printVetor(int *vetor, int numeroElementos) {
+    int count = 0;
     for (int i = 0; i < numeroElementos; i++) {
         printf("%d ", vetor[i]);
+        count++;
     }
     printf("\n");
+
+    return count;
 }
 
 int maiorElemento(int *vetor, int tamanho) {

@@ -10,7 +10,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
 #include "bucket_sort.h"
 
 #define QUANTIDADE_BUCKETS 10
@@ -25,6 +24,27 @@ struct bucket {
     int tamanho;
     struct elemento *primeiroElemento;
 };
+
+int getValorElemento(struct elemento *elemento) {
+    return elemento->valor;
+}
+
+struct elemento *getProximoElemento(struct elemento *elemento) {
+    return elemento->proximo;
+}
+
+struct elemento *getAnteriorElemento(struct elemento *elemento) {
+    return elemento->anterior;
+}
+
+struct elemento *getPrimeiroElemento(struct bucket *bucket) {
+    return bucket->primeiroElemento;
+}
+
+int getTamanhoBucket(struct bucket *bucket) {
+    return bucket->tamanho;
+}
+
 
 /**
  * @author Daniel Nogueira
@@ -181,7 +201,9 @@ void bucketSort(int *vetor, int numeroElementos) {
 
     int indiceVetor = 0;
     for (int indiceBucket = 0; indiceBucket < QUANTIDADE_BUCKETS; indiceBucket++) {
-        insertionSortToBucket(buckets[indiceBucket]->primeiroElemento, buckets[indiceBucket]->tamanho);
+        if (buckets[indiceBucket]->tamanho > 1) {
+            insertionSortToBucket(buckets[indiceBucket]);
+        }
 
         copiaValoresDeUmaListaDeElementosParaUmVetor(vetor, buckets[indiceBucket]->primeiroElemento, indiceVetor);
         indiceVetor +=buckets[indiceBucket]->tamanho;
@@ -189,6 +211,89 @@ void bucketSort(int *vetor, int numeroElementos) {
 
     free(buckets);
 }
+
+
+void trocarElementoComPrimeiroElementoDeUmBucket(Bucket *bucket, Elemento *elemento) {
+    if(elemento->anterior == bucket->primeiroElemento) {
+        Elemento *inicialmenteProximoDeElemento = elemento->proximo;
+        Elemento *inicialmentePrimeiroElemento = bucket->primeiroElemento;
+
+        inicialmenteProximoDeElemento->anterior = inicialmentePrimeiroElemento;
+
+        elemento->anterior = NULL;
+        elemento->proximo = inicialmentePrimeiroElemento;
+
+        inicialmentePrimeiroElemento->anterior = elemento;
+        inicialmentePrimeiroElemento->proximo = inicialmenteProximoDeElemento;
+
+        bucket->primeiroElemento = elemento;
+
+        return;
+    }
+
+    Elemento *inicialmenteAnteriorDeElemento = elemento->anterior;
+    Elemento *inicialmenteProximoDeElemento = elemento->proximo;
+    Elemento *inicialmentePrimeiroElemento = bucket->primeiroElemento;
+    Elemento *inicialmenteProximoDoPrimeiroElemento = bucket->primeiroElemento->proximo;
+
+    inicialmenteProximoDoPrimeiroElemento->anterior = elemento;
+
+    inicialmenteAnteriorDeElemento->proximo = inicialmentePrimeiroElemento;
+    inicialmenteProximoDeElemento->anterior = inicialmentePrimeiroElemento;
+
+    elemento->anterior = NULL;
+    elemento->proximo = inicialmenteProximoDoPrimeiroElemento;
+
+    inicialmentePrimeiroElemento->anterior = inicialmenteAnteriorDeElemento;
+    inicialmentePrimeiroElemento->proximo = inicialmenteProximoDeElemento;
+
+    bucket->primeiroElemento = elemento;
+}
+
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Troca dos elementos de lugar em uma lista de elementos
+ * @param elemento1 Elemento 1
+ * @param elemento2 Elemento 2
+ * @param bucket Bucket que contem os elementos
+ * @return true se os elementos foram trocados, false caso contrario
+ */
+bool trocarElementosDePosicao(Bucket *bucket, Elemento *elemento1, Elemento *elemento2) {
+    if (bucketVazio(bucket)) {
+        return false;
+    }
+
+    if (elemento1->anterior == NULL) {
+           trocarElementoComPrimeiroElementoDeUmBucket(bucket, elemento2);
+            return true;
+    }
+
+    if (elemento2->anterior == NULL) {
+           trocarElementoComPrimeiroElementoDeUmBucket(bucket, elemento1);
+            return true;
+    }
+
+    Elemento *inicialmenteProximoDeElemento1 = elemento1->proximo;
+    Elemento *inicialmenteProximoDeElemento2 = elemento2->proximo;
+    Elemento *inicialmenteAnteriorDeElemento1 = elemento1->anterior;
+    Elemento *inicialmenteAnteriorDeElemento2 = elemento2->anterior;
+
+    inicialmenteProximoDeElemento1->anterior = elemento2;
+    inicialmenteAnteriorDeElemento1->proximo = elemento2;
+
+    inicialmenteProximoDeElemento2->anterior = elemento1;
+    inicialmenteAnteriorDeElemento2->proximo = elemento1;
+
+    elemento1->anterior = inicialmenteAnteriorDeElemento2;
+    elemento1->proximo = inicialmenteProximoDeElemento2;
+
+    elemento2->anterior = inicialmenteAnteriorDeElemento1;
+    elemento2->proximo = inicialmenteProximoDeElemento1;
+
+    return true;
+}
+
 /**
  * @author Daniel Nogueira
  * @referencia
@@ -206,22 +311,16 @@ void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, Elemento *elemento
 }
 
 
-void insertionSortToBucket(Elemento *elemento, int tamanho) {
-    int auxiliar;
-    int indice = 0;
-    int indiceCorrente = 0;
-    Elemento *elementoCorrente = elemento->proximo;
-    while (elementoCorrente != NULL) {
-    indiceCorrente++;
-    indice = indiceCorrente - 1;
-        auxiliar = elemento->valor;
-        while ((indice >= 0) && (elemento->valor > auxiliar)) {
-            elemento->proximo->valor = elemento->valor;
-            elemento = elemento->anterior;
-            indice--;
-        }
-        elemento->valor = auxiliar;
+void insertionSortToBucket(Bucket *bucket) {
+    Elemento *primeiroElemento = bucket->primeiroElemento;
+    Elemento *elementoCorrente = primeiroElemento->proximo;
 
+    while (elementoCorrente != NULL) {
+        Elemento *elementoAnterior = elementoCorrente->anterior;
+        while ((elementoAnterior != NULL) && (elementoAnterior->valor > elementoCorrente->valor)) {
+            trocarElementosDePosicao(bucket, elementoAnterior, elementoCorrente);
+            elementoAnterior = elementoCorrente->anterior;
+        }
         elementoCorrente = elementoCorrente->proximo;
     }
 }
