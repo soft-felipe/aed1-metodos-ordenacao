@@ -10,6 +10,10 @@
 #include <time.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+#include "bucket_sort.h"
+
+#define QUANTIDADE_BUCKETS 10
 
 struct elemento {
     int valor;
@@ -104,7 +108,6 @@ void adicionaElementoNaPrimeiraPosicaoBucket(Bucket *bucket, Elemento *elemento)
      }
  }
 
-
 /**
  * @author Daniel Nogueira
  * @referencia
@@ -116,12 +119,25 @@ void adicionaElementoNaPrimeiraPosicaoBucket(Bucket *bucket, Elemento *elemento)
     adicionaElementoNaUltimaPosicaoBucket(bucket, elemento);
  }
 
+ /**
+  * @author Daniel Nogueira
+  * @referencia
+  * Aloca memória dinamicamente para um vetor de buckets
+  * @param quantidadeBuckets Quantidade de buckets a ser alocado
+  * @return vetor de buckets
+  */
  Bucket **alocaMemoriaBuckets(int quantidadeBuckets) {
      Bucket **buckets = (Bucket **) malloc(quantidadeBuckets * sizeof (Bucket *));
 
      return buckets;
  }
-
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Instacia buckets em um vetor de buckets
+ * @param quantidadeBuckets quantidade de buckets a ser alocada e instanciada
+ * @return buckets vetor de buckets já instaciado
+ */
  Bucket **iniciaBuckets(int quantidadeBuckets) {
      Bucket **buckets = alocaMemoriaBuckets(quantidadeBuckets);
      for (int i = 0; i < quantidadeBuckets; i++) {
@@ -141,25 +157,55 @@ void adicionaElementoNaPrimeiraPosicaoBucket(Bucket *bucket, Elemento *elemento)
  */
 void bucketSort(int *vetor, int numeroElementos) {
     int maior = maiorElemento(vetor, numeroElementos);
-
-    int bucket[maior + 1];
-
-    for (int i = 0; i < maior + 1; i++) {
-        bucket[i] = 0;
+    if (maior == 0) {
+        return;
     }
 
-    for (int i = 0; i < numeroElementos; i++) {
-        bucket[vetor[i]]++;
-    }
+    Bucket **buckets = iniciaBuckets(QUANTIDADE_BUCKETS);
 
-    int indice = 0;
-    for (int i = 0; i<= maior; i++) {
-        while (bucket[i] > 0) {
-            vetor[indice++] = i;
-            bucket[i]--;
+    for (int indice = 0; indice < numeroElementos; indice++) {
+        double porcentagemEmRelacaoMaior =  vetor[indice] / maior;
+
+        if (porcentagemEmRelacaoMaior == 1) {
+            porcentagemEmRelacaoMaior = 0.99;
         }
+
+        int indiceBucket = (porcentagemEmRelacaoMaior * QUANTIDADE_BUCKETS);
+        Elemento *elemento = iniciaElemento(vetor[indice]);
+        adicionaElementoBucket(buckets[indiceBucket], elemento);
+    }
+
+    int indiceVetor = 0;
+    int indiceElemento;
+    for (int indice = 0; indice < QUANTIDADE_BUCKETS; indice++) {
+        insertionSortToBucket(buckets[indice]->primeiroElemento, buckets[indice]->tamanho);
+        for (indiceElemento = 0; indiceElemento < buckets[indice]->tamanho; indiceElemento++) {
+            vetor[indiceVetor] = buckets[indice]->primeiroElemento->valor;
+        }
+        indiceVetor +=indiceElemento;
+    }
+
+
+    free(buckets);
+}
+
+void insertionSortToBucket(Elemento *elemento, int tamanho) {
+    int i, j, aux;
+    i = 0;
+    j = 1;
+
+    while (j < tamanho) {
+        i = j - 1;
+        aux = elemento[j].valor;
+        while ((i >= 0) && (elemento[i].valor > aux)) {
+            elemento[i + 1].valor = elemento[i].valor;
+            i--;
+        }
+        elemento[i + 1].valor = aux;
+        j++;
     }
 }
+
 
 /**
 * @author Daniel Nogueira
