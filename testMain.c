@@ -1,7 +1,8 @@
 #include "test.h"
 
 int main() {
-    imprimeResultadoTestMetodos();
+    //imprimeResultadoTestMetodos();
     imprimeResultadoTestUtilitarios();
+    imprimeResultadoTestBucket();
     return 0;
 }

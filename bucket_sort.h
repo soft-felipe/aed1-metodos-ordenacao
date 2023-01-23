@@ -2,7 +2,6 @@
 #define BUCKET_SORT_H
 
 #include "stdbool.h"
-#include "metodos.h"
 
 typedef struct bucket Bucket;
 
@@ -37,6 +36,18 @@ struct elemento *getAnteriorElemento(struct elemento *elemento);
 struct elemento *getPrimeiroElemento(struct bucket *bucket);
 
 int getTamanhoBucket(struct bucket *bucket);
+
+void setElementoProximo(struct elemento *elemento, struct elemento *proximoElemento);
+
+void setElementoAnterior(struct elemento *elemento, struct elemento *elementoAnterior);
+
+void setPrimeiroElemento(struct bucket *bucket, struct elemento *elemento);
+
+void setTamanhoBucket(struct bucket *bucket, int tamanho);
+
+void trocaElementoComPrimeiroElementoBucket(struct bucket *bucket, struct elemento *elemento);
+
+bool trocaElementosDePosicao(struct bucket *bucket, struct elemento *elemento, struct elemento *proximoElemento);
 
 
 #endif //BUCKET_SORT_H
