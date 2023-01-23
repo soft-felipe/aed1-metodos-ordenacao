@@ -18,6 +18,7 @@
 struct elemento {
     int valor;
     struct elemento *proximo;
+    struct elemento *anterior;
 };
 
 struct bucket {
@@ -47,8 +48,9 @@ Bucket *iniciaBucket() {
  */
 Elemento *iniciaElemento(int valor) {
     Elemento *elemento = (Elemento *) malloc(sizeof(Elemento));
-    elemento->valor = 0;
+    elemento->valor = valor;
     elemento->proximo = NULL;
+    elemento->anterior = NULL;
 
     return elemento;
 }
@@ -62,6 +64,7 @@ Elemento *iniciaElemento(int valor) {
  */
 void adicionaElemento(Bucket *bucket, Elemento *elementoAnterior, Elemento *elemento) {
     elementoAnterior->proximo = elemento;
+    elemento->anterior = elementoAnterior;
     bucket->tamanho++;
 }
 
@@ -99,6 +102,7 @@ void adicionaElementoNaPrimeiraPosicaoBucket(Bucket *bucket, Elemento *elemento)
  void adicionaElementoNaUltimaPosicaoBucket(Bucket *bucket, Elemento *elemento) {
      if (bucketVazio(bucket)) {
          adicionaElementoNaPrimeiraPosicaoBucket(bucket, elemento);
+         return;
      } else {
          Elemento *elementoCorrente = bucket->primeiroElemento;
          while (elementoCorrente->proximo != NULL) {
@@ -164,7 +168,7 @@ void bucketSort(int *vetor, int numeroElementos) {
     Bucket **buckets = iniciaBuckets(QUANTIDADE_BUCKETS);
 
     for (int indice = 0; indice < numeroElementos; indice++) {
-        double porcentagemEmRelacaoMaior =  vetor[indice] / maior;
+        double porcentagemEmRelacaoMaior =  vetor[indice] * 1.0 / maior;
 
         if (porcentagemEmRelacaoMaior == 1) {
             porcentagemEmRelacaoMaior = 0.99;
@@ -176,33 +180,49 @@ void bucketSort(int *vetor, int numeroElementos) {
     }
 
     int indiceVetor = 0;
-    int indiceElemento;
-    for (int indice = 0; indice < QUANTIDADE_BUCKETS; indice++) {
-        insertionSortToBucket(buckets[indice]->primeiroElemento, buckets[indice]->tamanho);
-        for (indiceElemento = 0; indiceElemento < buckets[indice]->tamanho; indiceElemento++) {
-            vetor[indiceVetor] = buckets[indice]->primeiroElemento->valor;
-        }
-        indiceVetor +=indiceElemento;
-    }
+    for (int indiceBucket = 0; indiceBucket < QUANTIDADE_BUCKETS; indiceBucket++) {
+        insertionSortToBucket(buckets[indiceBucket]->primeiroElemento, buckets[indiceBucket]->tamanho);
 
+        copiaValoresDeUmaListaDeElementosParaUmVetor(vetor, buckets[indiceBucket]->primeiroElemento, indiceVetor);
+        indiceVetor +=buckets[indiceBucket]->tamanho;
+    }
 
     free(buckets);
 }
+/**
+ * @author Daniel Nogueira
+ * @referencia
+ * Copia os valores de uma lista de elementos para um vetor a partir de uma determinada posicao do vetor
+ * @param vetor
+ * @param elemento
+ * @param posicao
+ */
+void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, Elemento *elemento, int posicao) {
+    while (elemento != NULL) {
+        vetor[posicao] = elemento->valor;
+        elemento = elemento->proximo;
+        posicao++;
+    }
+}
+
 
 void insertionSortToBucket(Elemento *elemento, int tamanho) {
-    int i, j, aux;
-    i = 0;
-    j = 1;
-
-    while (j < tamanho) {
-        i = j - 1;
-        aux = elemento[j].valor;
-        while ((i >= 0) && (elemento[i].valor > aux)) {
-            elemento[i + 1].valor = elemento[i].valor;
-            i--;
+    int auxiliar;
+    int indice = 0;
+    int indiceCorrente = 0;
+    Elemento *elementoCorrente = elemento->proximo;
+    while (elementoCorrente != NULL) {
+    indiceCorrente++;
+    indice = indiceCorrente - 1;
+        auxiliar = elemento->valor;
+        while ((indice >= 0) && (elemento->valor > auxiliar)) {
+            elemento->proximo->valor = elemento->valor;
+            elemento = elemento->anterior;
+            indice--;
         }
-        elemento[i + 1].valor = aux;
-        j++;
+        elemento->valor = auxiliar;
+
+        elementoCorrente = elementoCorrente->proximo;
     }
 }
 

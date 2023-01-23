@@ -26,5 +26,7 @@ struct bucket **alocaMemoriaBuckets(int quantidadeBuckets);
 
 struct bucket **iniciaBuckets(int quantidadeBuckets);
 
+void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, struct elemento *elemento, int posicao);
+
 
 #endif //BUCKET_SORT_H
