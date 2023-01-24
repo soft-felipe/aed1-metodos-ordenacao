@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "test.h"
+#include "string.h"
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_DEFAULT "\033[0m"
@@ -131,10 +132,14 @@ int testRandom(int algoritmo) {
             break;
 
     }
-    qsort(vetor, 10, sizeof(int), cmpfunc);
+
+    int vetorEsperado[10];
+    // Copia o vetor para o vetorEsperado
+    memcpy(&vetorEsperado, &vetor, sizeof(vetor));
+    qsort(vetorEsperado, 10, sizeof(int), cmpfunc);
 
     for (int indice = 0; indice < 9; indice++) {
-        if (vetor[indice] > vetor[indice + 1]) {
+        if (vetorEsperado[indice] != vetor[indice]) {
             return algoritmo;
         }
     }
