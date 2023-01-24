@@ -257,6 +257,24 @@ void testBucketSort() {
     free(vetor);
 }
 
+void testBucketSortCarga() {
+    int tamanho = 30000;
+    int *vetor = alocaMemoriaVetorInteiros(tamanho);
+    vetor = geraVetorAleatorio(tamanho);
+
+    bucketSort(vetor, tamanho);
+
+    for (int indice = 0; indice < tamanho- 1; indice++) {
+        if (vetor[indice] > vetor[indice + 1]) {
+            printf(ANSI_COLOR_RED "testBucketSortCarga(): FAIL" ANSI_DEFAULT "\n");
+            return;
+        }
+    }
+
+
+    printf(ANSI_COLOR_GREEN "testBucketSortCarga(): SUCCESS" ANSI_DEFAULT "\n");
+}
+
 void imprimeResultadoTestBucket() {
     testIniciaBucket();
     testIniciaElemento();
@@ -277,4 +295,5 @@ void imprimeResultadoTestBucket() {
     testInsertionSort();
     printf("\n");
     testBucketSort();
+    testBucketSortCarga();
 }

@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "bucket_sort.h"
+#include "string.h"
 
 #define QUANTIDADE_BUCKETS 10
 
@@ -201,7 +202,7 @@ bool bucketVazio(Bucket *bucket) {
  */
 void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, Elemento *elemento, int posicao) {
     while (elemento != NULL) {
-        vetor[posicao] = elemento->valor;
+        memcpy(&vetor[posicao], &elemento->valor, sizeof(int));
         elemento = elemento->proximo;
         posicao++;
     }
