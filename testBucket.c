@@ -2,6 +2,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "utilitarios.h"
+#include "metodos.h"
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_DEFAULT "\033[0m"
@@ -20,7 +21,7 @@ void testIniciaBucket() {
 
 void testIniciaElemento() {
     Elemento *elemento = iniciaElemento(1);
-    if (getValorElemento(elemento) == 1 && getProximoElemento(elemento) == NULL && getAnteriorElemento(elemento) == NULL) {
+    if (getValorElemento(elemento) == 1 && getProximoElemento(elemento) == NULL) {
         printf(ANSI_COLOR_GREEN "testIniciaElemento(): SUCCESS" ANSI_DEFAULT "\n");
     } else {
         printf(ANSI_COLOR_RED "testIniciaElemento(): FAIL" ANSI_DEFAULT "\n");
@@ -56,6 +57,7 @@ void testBucketVazioFalse() {
 void testAdicionaElementoNaUltimaPosicaoBucketTrueTamanhoEPosicao() {
     Bucket *bucket = iniciaBucket();
     setPrimeiroElemento(bucket, iniciaElemento(0));
+    incrementaTamanhoBucket(bucket);
     Elemento *elemento = iniciaElemento(1);
     adicionaElementoNaUltimaPosicaoBucket(bucket, elemento);
     if (getProximoElemento(getPrimeiroElemento(bucket)) == elemento && getTamanhoBucket(bucket) == 2) {
@@ -67,26 +69,12 @@ void testAdicionaElementoNaUltimaPosicaoBucketTrueTamanhoEPosicao() {
     free(bucket);
 }
 
-void testAdicionaElementoNaUltimaPosicaoBucketTrueAnterior() {
-    Bucket *bucket = iniciaBucket();
-    setPrimeiroElemento(bucket, iniciaElemento(0));
-    Elemento *elemento = iniciaElemento(1);
-    adicionaElementoNaUltimaPosicaoBucket(bucket, elemento);
-    if (getAnteriorElemento(getProximoElemento(getPrimeiroElemento(bucket))) == getPrimeiroElemento(bucket)) {
-        printf(ANSI_COLOR_GREEN "testAdicionaElementoNaUltimaPosicaoBucketTrueAnterior(): SUCCESS" ANSI_DEFAULT "\n");
-    } else {
-        printf(ANSI_COLOR_RED "testAdicionaElementoNaUltimaPosicaoBucketTrueAnterior(): FAIL" ANSI_DEFAULT "\n");
-    }
-    free(elemento);
-    free(bucket);
-}
-
 void testAlocaMemoriaBucketsTrue() {
     Bucket **buckets = alocaMemoriaBuckets(10);
 
     int tamanhoDeMemoria = 0;
     for (int indice = 0; indice < 10; indice++) {
-        tamanhoDeMemoria += sizeof(buckets[indice]);
+        tamanhoDeMemoria += sizeof(&buckets[indice]);
     }
 
     if (tamanhoDeMemoria == sizeof(Bucket *) * 10) {
@@ -207,70 +195,66 @@ void testCopiarValoresDeUmaListaDeElementosParaUmVetorSemiOrdenado() {
     free(elemento4);
 }
 
-void testTrocaElementoComPrimeiroElementoBucketElementosSeguidos() {
+void testInsertionSort() {
     Bucket *bucket = iniciaBucket();
-    Elemento *elemento0 = iniciaElemento(10);
-    Elemento *elemento1 = iniciaElemento(15);
-    Elemento *elemento2 = iniciaElemento(20);
+
+    Elemento *elemento0 = iniciaElemento(3);
+    Elemento *elemento1 = iniciaElemento(5);
+    Elemento *elemento2 = iniciaElemento(1);
+    Elemento *elemento3 = iniciaElemento(4);
+    Elemento *elemento4 = iniciaElemento(2);
 
     setPrimeiroElemento(bucket, elemento0);
+    incrementaTamanhoBucket(bucket);
     adicionaElementoNaUltimaPosicaoBucket(bucket, elemento1);
     adicionaElementoNaUltimaPosicaoBucket(bucket, elemento2);
+    adicionaElementoNaUltimaPosicaoBucket(bucket, elemento3);
+    adicionaElementoNaUltimaPosicaoBucket(bucket, elemento4);
 
-    trocaElementoComPrimeiroElementoBucket(bucket, elemento1);
+    insertionSortToBucket(bucket);
 
-    int *vetor = alocaMemoriaVetorInteiros(3);
+    int *vetor = alocaMemoriaVetorInteiros(5);
     copiaValoresDeUmaListaDeElementosParaUmVetor(vetor, getPrimeiroElemento(bucket), 0);
+    liberaMemoriaBucket(bucket);
 
-
-    int vetorEsperado[3] = {15, 10, 20};
-
-    for (int indice = 0; indice < 3; indice++) {
-        if (vetor[indice] != vetorEsperado[indice]) {
-            printf(ANSI_COLOR_RED "testTrocaElementoComPrimeiroElementoBucketSeguidos(): FAIL" ANSI_DEFAULT "\n");
+    for (int indice = 0; indice < 5; indice++) {
+        if (vetor[indice] != indice + 1) {
+            printf(ANSI_COLOR_RED "testInsertionSort(): FAIL" ANSI_DEFAULT "\n");
             return;
         }
     }
 
-    printf(ANSI_COLOR_GREEN "testTrocaElementoComPrimeiroElementoBucketSeguidos(): SUCCESS" ANSI_DEFAULT "\n");
+    printf(ANSI_COLOR_GREEN "testInsertionSort(): SUCCESS" ANSI_DEFAULT "\n");
+
     free(vetor);
-    free(bucket);
-    free(elemento0);
-    free(elemento1);
-    free(elemento2);
 }
 
-void testTrocaElementoComPrimeiroElementoBucketElementosDistantes(){
-    Bucket *bucket = iniciaBucket();
-    Elemento *elemento0 = iniciaElemento(10);
-    Elemento *elemento1 = iniciaElemento(15);
-    Elemento *elemento2 = iniciaElemento(20);
+void testBucketSort() {
+    int tamanho = 10;
+    int *vetor = alocaMemoriaVetorInteiros(tamanho);
+    vetor[0] = 3;
+    vetor[1] = 5;
+    vetor[2] = 1;
+    vetor[3] = 4;
+    vetor[4] = 2;
+    vetor[5] = 10;
+    vetor[6] = 7;
+    vetor[7] = 9;
+    vetor[8] = 8;
+    vetor[9] = 6;
 
-    setPrimeiroElemento(bucket, elemento0);
-    adicionaElementoNaUltimaPosicaoBucket(bucket, elemento1);
-    adicionaElementoNaUltimaPosicaoBucket(bucket, elemento2);
+    bucketSort(vetor, tamanho);
 
-    trocaElementoComPrimeiroElementoBucket(bucket, elemento2);
-
-    int *vetor = alocaMemoriaVetorInteiros(3);
-    copiaValoresDeUmaListaDeElementosParaUmVetor(vetor, getPrimeiroElemento(bucket), 0);
-
-
-    int vetorEsperado[3] = {20, 15, 10};
-
-    for (int indice = 0; indice < 3; indice++) {
-        if (vetor[indice] != vetorEsperado[indice]) {
-            printf(ANSI_COLOR_RED "testTrocaElementoComPrimeiroElementoBucketSeguidos(): FAIL" ANSI_DEFAULT "\n");
+    for (int indice = 0; indice < tamanho; indice++) {
+        if (vetor[indice] != indice + 1) {
+            printf(ANSI_COLOR_RED "testBucketSort(): FAIL" ANSI_DEFAULT "\n");
             return;
         }
     }
 
-    printf(ANSI_COLOR_GREEN "testTrocaElementoComPrimeiroElementoBucketSeguidos(): SUCCESS" ANSI_DEFAULT "\n");
+    printf(ANSI_COLOR_GREEN "testBucketSort(): SUCCESS" ANSI_DEFAULT "\n");
+    printVetor(vetor, tamanho);
     free(vetor);
-    free(bucket);
-    free(elemento0);
-    free(elemento1);
-    free(elemento2);
 }
 
 void imprimeResultadoTestBucket() {
@@ -281,7 +265,6 @@ void imprimeResultadoTestBucket() {
     testBucketVazioFalse();
     printf("\n");
     testAdicionaElementoNaUltimaPosicaoBucketTrueTamanhoEPosicao();
-    testAdicionaElementoNaUltimaPosicaoBucketTrueAnterior();
     printf("\n");
     testAlocaMemoriaBucketsTrue();
     testAlocaMemoriaBucketsFalse();
@@ -291,6 +274,7 @@ void imprimeResultadoTestBucket() {
     testCopiarValoresDeUmaListaDeElementosParaUmVetorOrdenado();
     testCopiarValoresDeUmaListaDeElementosParaUmVetorSemiOrdenado();
     printf("\n");
-    testTrocaElementoComPrimeiroElementoBucketElementosSeguidos();
-    testTrocaElementoComPrimeiroElementoBucketElementosDistantes();
+    testInsertionSort();
+    printf("\n");
+    testBucketSort();
 }

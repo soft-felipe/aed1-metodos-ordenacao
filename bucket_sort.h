@@ -31,23 +31,28 @@ int getValorElemento(struct elemento *elemento);
 
 struct elemento *getProximoElemento(struct elemento *elemento);
 
-struct elemento *getAnteriorElemento(struct elemento *elemento);
-
 struct elemento *getPrimeiroElemento(struct bucket *bucket);
 
 int getTamanhoBucket(struct bucket *bucket);
 
 void setElementoProximo(struct elemento *elemento, struct elemento *proximoElemento);
 
-void setElementoAnterior(struct elemento *elemento, struct elemento *elementoAnterior);
-
 void setPrimeiroElemento(struct bucket *bucket, struct elemento *elemento);
 
 void setTamanhoBucket(struct bucket *bucket, int tamanho);
 
-void trocaElementoComPrimeiroElementoBucket(struct bucket *bucket, struct elemento *elemento);
+void incrementaTamanhoBucket(struct bucket *bucket);
 
-bool trocaElementosDePosicao(struct bucket *bucket, struct elemento *elemento, struct elemento *proximoElemento);
+void liberaMemororiaElementos(struct elemento *elemento);
 
+void liberaMemoriaBuckets(struct bucket **buckets, int quantidadeBuckets);
+
+void liberaMemoriaBucket(struct bucket *bucket);
+
+void removeElementoLista(Elemento *elemento, Elemento *elementoAnterior);
+
+void adicionaElementoLista(Elemento *elemento, Elemento *elementoAnterior);
+
+void setValorElemento(struct elemento *elemento, int valor);
 
 #endif //BUCKET_SORT_H

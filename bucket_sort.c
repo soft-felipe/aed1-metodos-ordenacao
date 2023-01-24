@@ -17,7 +17,6 @@
 struct elemento {
     int valor;
     struct elemento *proximo;
-    struct elemento *anterior;
 };
 
 struct bucket {
@@ -33,10 +32,6 @@ struct elemento *getProximoElemento(struct elemento *elemento) {
     return elemento->proximo;
 }
 
-struct elemento *getAnteriorElemento(struct elemento *elemento) {
-    return elemento->anterior;
-}
-
 struct elemento *getPrimeiroElemento(struct bucket *bucket) {
     return bucket->primeiroElemento;
 }
@@ -47,20 +42,54 @@ int getTamanhoBucket(struct bucket *bucket) {
 
 void setElementoProximo(struct elemento *elemento, struct elemento *elementoProximo) {
     elemento->proximo = elementoProximo;
-    elementoProximo->anterior = elemento;
 }
 
-void setElementoAnterior(struct elemento *elemento, struct elemento *elementoAnterior) {
-    elemento->anterior = elementoAnterior;
-    elementoAnterior->proximo = elemento;
-}
 
 void setPrimeiroElemento(struct bucket *bucket, struct elemento *elemento) {
     bucket->primeiroElemento = elemento;
 }
 
+void setUltimoElemento(struct bucket *bucket, struct elemento *elemento) {
+    struct elemento *ultimoElemento = getPrimeiroElemento(bucket);
+    while (getProximoElemento(ultimoElemento) != NULL) {
+        ultimoElemento = getProximoElemento(ultimoElemento);
+    }
+    setElementoProximo(ultimoElemento, elemento);
+    elemento->proximo = NULL;
+}
+
 void setTamanhoBucket(struct bucket *bucket, int tamanho) {
     bucket->tamanho = tamanho;
+}
+
+void setValorElemento(struct elemento *elemento, int valor) {
+    elemento->valor = valor;
+}
+
+void incrementaTamanhoBucket(struct bucket *bucket) {
+    bucket->tamanho++;
+}
+
+void liberaMemororiaElementos(struct elemento *elemento) {
+    Elemento *elemenoTmp;
+    while (elemento != NULL) {
+        elemenoTmp = elemento;
+        elemento = getProximoElemento(elemento);
+        free(elemenoTmp);
+    }
+}
+
+void liberaMemoriaBucket(struct bucket *bucket) {
+    liberaMemororiaElementos(getPrimeiroElemento(bucket));
+    free(bucket);
+}
+
+void liberaMemoriaBuckets(struct bucket **buckets, int quantidadeBuckets) {
+    for (int i = 0; i < quantidadeBuckets; i++) {
+        liberaMemororiaElementos(getPrimeiroElemento(buckets[i]));
+        free(buckets[i]);
+    }
+    free(buckets);
 }
 
 /**
@@ -87,7 +116,6 @@ Elemento *iniciaElemento(int valor) {
     Elemento *elemento = (Elemento *) malloc(sizeof(Elemento));
     elemento->valor = valor;
     elemento->proximo = NULL;
-    elemento->anterior = NULL;
 
     return elemento;
 }
@@ -163,89 +191,6 @@ bool bucketVazio(Bucket *bucket) {
      }
      return buckets;
  }
-
-void trocaElementoComPrimeiroElementoBucket(Bucket *bucket, Elemento *elemento) {
-    if(elemento->anterior == bucket->primeiroElemento) {
-        Elemento *inicialmenteProximoDeElemento = elemento->proximo;
-        Elemento *inicialmentePrimeiroElemento = bucket->primeiroElemento;
-
-        inicialmenteProximoDeElemento->anterior = inicialmentePrimeiroElemento;
-
-        elemento->anterior = NULL;
-        elemento->proximo = inicialmentePrimeiroElemento;
-
-        inicialmentePrimeiroElemento->anterior = elemento;
-        inicialmentePrimeiroElemento->proximo = inicialmenteProximoDeElemento;
-
-        bucket->primeiroElemento = elemento;
-
-        return;
-    }
-
-    Elemento *inicialmenteAnteriorDeElemento = elemento->anterior;
-    Elemento *inicialmenteProximoDeElemento = elemento->proximo;
-    Elemento *inicialmentePrimeiroElemento = bucket->primeiroElemento;
-    Elemento *inicialmenteProximoDoPrimeiroElemento = bucket->primeiroElemento->proximo;
-
-    inicialmenteProximoDoPrimeiroElemento->anterior = elemento;
-
-    inicialmenteAnteriorDeElemento->proximo = inicialmentePrimeiroElemento;
-    inicialmenteProximoDeElemento->anterior = inicialmentePrimeiroElemento;
-
-    elemento->anterior = NULL;
-    elemento->proximo = inicialmenteProximoDoPrimeiroElemento;
-
-    inicialmentePrimeiroElemento->anterior = inicialmenteAnteriorDeElemento;
-    inicialmentePrimeiroElemento->proximo = inicialmenteProximoDeElemento;
-
-    bucket->primeiroElemento = elemento;
-}
-
-
-    /**
-* @author Daniel Nogueira
-* @referencia
-* Troca dos elementos de lugar em uma lista de elementos
-* @param elemento1 Elemento 1
-* @param elemento2 Elemento 2
-* @param bucket Bucket que contem os elementos
-* @return true se os elementos foram trocados, false caso contrario
-*/
-bool trocaElementosDePosicao(Bucket *bucket, Elemento *elemento1, Elemento *elemento2) {
-    if (bucketVazio(bucket)) {
-        return false;
-    }
-
-    if (elemento1->anterior == NULL) {
-        trocaElementoComPrimeiroElementoBucket(bucket, elemento2);
-        return true;
-    }
-
-    if (elemento2->anterior == NULL) {
-        trocaElementoComPrimeiroElementoBucket(bucket, elemento1);
-        return true;
-    }
-
-    Elemento *inicialmenteProximoDeElemento1 = elemento1->proximo;
-    Elemento *inicialmenteProximoDeElemento2 = elemento2->proximo;
-    Elemento *inicialmenteAnteriorDeElemento1 = elemento1->anterior;
-    Elemento *inicialmenteAnteriorDeElemento2 = elemento2->anterior;
-
-    inicialmenteProximoDeElemento1->anterior = elemento2;
-    inicialmenteAnteriorDeElemento1->proximo = elemento2;
-
-    inicialmenteProximoDeElemento2->anterior = elemento1;
-    inicialmenteAnteriorDeElemento2->proximo = elemento1;
-
-    elemento1->anterior = inicialmenteAnteriorDeElemento2;
-    elemento1->proximo = inicialmenteProximoDeElemento2;
-
-    elemento2->anterior = inicialmenteAnteriorDeElemento1;
-    elemento2->proximo = inicialmenteProximoDeElemento1;
-
-    return true;
-}
-
 /**
  * @author Daniel Nogueira
  * @referencia
@@ -271,6 +216,7 @@ void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, Elemento *elemento
  * @param numeroElementos Tamanho do vetor
  */
 void bucketSort(int *vetor, int numeroElementos) {
+    Elemento *elemento;
     int maior = maiorElemento(vetor, numeroElementos);
     if (maior == 0) {
         return;
@@ -286,7 +232,7 @@ void bucketSort(int *vetor, int numeroElementos) {
         }
 
         int indiceBucket = (porcentagemEmRelacaoMaior * QUANTIDADE_BUCKETS);
-        Elemento *elemento = iniciaElemento(vetor[indice]);
+        elemento = iniciaElemento(vetor[indice]);
         adicionaElementoBucket(buckets[indiceBucket], elemento);
     }
 
@@ -300,23 +246,44 @@ void bucketSort(int *vetor, int numeroElementos) {
         indiceVetor +=buckets[indiceBucket]->tamanho;
     }
 
-    free(buckets);
+    liberaMemoriaBuckets(buckets, QUANTIDADE_BUCKETS);
+}
+
+void removeElementoLista(Elemento *elemento, Elemento *elementoAnterior) {
+    elementoAnterior->proximo = elemento->proximo;
+}
+
+void adicionaElementoLista(Elemento *elemento, Elemento *elementoAnterior) {
+    elemento->proximo = elementoAnterior->proximo;
+    elementoAnterior->proximo = elemento;
 }
 
 void insertionSortToBucket(Bucket *bucket) {
-    Elemento *primeiroElemento = bucket->primeiroElemento;
-    Elemento *elementoCorrente = primeiroElemento->proximo;
-
+    Elemento *elementoCorrente = bucket->primeiroElemento->proximo;
+    Elemento *maior = bucket->primeiroElemento;
+    Elemento *elementoCorrenteProximo;
     while (elementoCorrente != NULL) {
-        Elemento *elementoAnterior = elementoCorrente->anterior;
-        while ((elementoAnterior != NULL) && (elementoAnterior->valor > elementoCorrente->valor)) {
-            trocaElementosDePosicao(bucket, elementoAnterior, elementoCorrente);
-            elementoAnterior = elementoCorrente->anterior;
+        if (maior->valor > elementoCorrente->valor) {
+            elementoCorrenteProximo = elementoCorrente->proximo;
+            removeElementoLista(elementoCorrente, maior);
+            if (elementoCorrente->valor < bucket->primeiroElemento->valor) {
+                setElementoProximo(elementoCorrente, bucket->primeiroElemento);
+                setPrimeiroElemento(bucket, elementoCorrente);
+            } else {
+                Elemento *indiceVetorOrdenado = bucket->primeiroElemento;
+                while (indiceVetorOrdenado->proximo->valor < elementoCorrente->valor) {
+                    indiceVetorOrdenado = indiceVetorOrdenado->proximo;
+                }
+                adicionaElementoLista(elementoCorrente, indiceVetorOrdenado);
+            }
+            elementoCorrente = elementoCorrenteProximo;
         }
-        elementoCorrente = elementoCorrente->proximo;
+        else {
+            maior = elementoCorrente;
+            elementoCorrente = elementoCorrente->proximo;
+        }
     }
 }
-
 
 /**
 * @author Daniel Nogueira
