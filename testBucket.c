@@ -253,13 +253,12 @@ void testBucketSort() {
     }
 
     printf(ANSI_COLOR_GREEN "testBucketSort(): SUCCESS" ANSI_DEFAULT "\n");
-    printVetor(vetor, tamanho);
     free(vetor);
 }
 
 void testBucketSortCarga() {
     int tamanho = 30000;
-    int *vetor = alocaMemoriaVetorInteiros(tamanho);
+    int *vetor;
     vetor = geraVetorAleatorio(tamanho);
 
     bucketSort(vetor, tamanho);
@@ -273,6 +272,7 @@ void testBucketSortCarga() {
 
 
     printf(ANSI_COLOR_GREEN "testBucketSortCarga(): SUCCESS" ANSI_DEFAULT "\n");
+    free(vetor);
 }
 
 void imprimeResultadoTestBucket() {

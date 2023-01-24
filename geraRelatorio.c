@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "utilitarios.h"
-#define NUMERO_VETORES 50
+#define NUMERO_VETORES 40
 #define QUANTIDADE_ALGORITMOS 8
 
 
@@ -54,7 +54,7 @@ void imprimeResultadoPorTamanhoVetor(int tamanho, double *tempos) {
 void geraResultados() {
     int escolheTamanho;
     int casosTeste = 8;
-    long int tamanhosPossiveis[] = {10000,  10000, 1000, 100, 300, 500, 100, 100, 300};
+    long int tamanhosPossiveis[] = {100,  1000, 10000, 15000, 50000, 75000, 100000, 150000};
 
     double guardaTemposPorAlgoritmo[QUANTIDADE_ALGORITMOS] = {0.0};
 
