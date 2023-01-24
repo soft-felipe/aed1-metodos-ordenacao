@@ -1,21 +1,25 @@
 #ifndef AED1_METODOS_ORDENACAO_METODOS_H
 #define AED1_METODOS_ORDENACAO_METODOS_H
 
+#include "bucket_sort.h"
+
 void insertionSort(int *vetor, int numeroElementos);
 
 void selectionSort(int *vetor, int numeroElementos);
 
 void bubbleSort(int *vetor, int numeroElementos);
 
-void mergeSort (int *vetor, int l, int r);
+void mergeSort(int *vetor, int tamanho);
+
+void sort(int *vetor, int inicio, int fim);
 
 void merge(int *vetor, int l, int m, int r);
 
-void quickSort(int *vetor, int inicio, int fim);
+void quickSort(int *vetor, int tamanho);
+
+void quick(int *vetor, int inicio, int fim);
 
 int particiona(int *vetor, int inicio, int fim);
-
-void countingSort(int *vetor, int numeroElementos);
 
 void countingSort(int *vetor, int numeroElementos);
 
@@ -24,6 +28,8 @@ void radixSort(int *vetor, int numeroElementos);
 void countingSortToRadix(int *vetor, int numeroElementos, int exp);
 
 void bucketSort(int *vetor, int numeroElementos);
+
+void insertionSortToBucket(struct bucket *bucket);
 
 double insertionSortTime(int *vetor, int numeroElementos);
 

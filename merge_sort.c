@@ -7,6 +7,18 @@
 
 #include <time.h>
 #include "metodos.h"
+#include "utilitarios.h"
+#include <stdlib.h>
+
+/**
+ * Encapsula o metodo mergeSort, recebendo somente o vetor e o seu tamanho
+ * @param vetor
+ * @param tamanho
+ */
+void mergeSort(int *vetor, int tamanho) {
+    sort(vetor, 0, tamanho - 1);
+}
+
 
 /**
  * @author Daniel Nogueira
@@ -15,11 +27,11 @@
  * @param vetor Vetor a ser ordenado
  * @param tamanhoVetor Tamanho do vetor
  */
-void mergeSort(int vetor[], int inicio, int fim) {
+void sort(int vetor[], int inicio, int fim) {
     if (inicio < fim) {
         int meio = inicio + (fim - inicio) / 2;
-        mergeSort(vetor, inicio, meio);
-        mergeSort(vetor, meio + 1, fim);
+        sort(vetor, inicio, meio);
+        sort(vetor, meio + 1, fim);
         merge(vetor, inicio, meio, fim);
     }
 }
@@ -39,7 +51,8 @@ void merge(int vetor[], int inicio, int meio, int fim) {
     int n1 = meio - inicio + 1;
     int n2 = fim - meio;
 
-    int esq[n1], dir[n2];
+    int *esq = alocaMemoriaVetorInteiros(n1);
+    int *dir = alocaMemoriaVetorInteiros(n2);
 
     for (i = 0; i < n1; i++) {
         esq[i] = vetor[inicio + i];
@@ -74,6 +87,9 @@ void merge(int vetor[], int inicio, int meio, int fim) {
         j++;
         k++;
     }
+
+    free(esq);
+    free(dir);
 }
 
 /**
@@ -87,7 +103,7 @@ double mergeSortTime(int *vetor, int numeroElementos) {
     clock_t inicio, fim;
     double tempoGasto;
     inicio = clock();
-    mergeSort(vetor,0, numeroElementos - 1);
+    mergeSort(vetor, numeroElementos - 1);
     fim = clock();
     tempoGasto = ((double) (fim - inicio)) / CLOCKS_PER_SEC * 1000;
     return tempoGasto;

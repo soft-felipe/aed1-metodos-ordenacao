@@ -8,21 +8,29 @@ int *alocaMemoriaVetorInteiros(int tamanho) {
     return (int *) malloc(tamanho * sizeof(int));
 }
 
+void liberaMemoria(int *vetor) {
+    free(vetor);
+}
+
 int *geraVetorAleatorio(int tamanho) {
     int *vetor = alocaMemoriaVetorInteiros(tamanho);
 
     srand(time(NULL));
     for (int i = 0; i < tamanho; i++) {
-        vetor[i] = rand();
+        vetor[i] = rand() % 100000;
     }
     return vetor;
 }
 
-void printVetor(int *vetor, int numeroElementos) {
+int printVetor(int *vetor, int numeroElementos) {
+    int count = 0;
     for (int i = 0; i < numeroElementos; i++) {
         printf("%d ", vetor[i]);
+        count++;
     }
     printf("\n");
+
+    return count;
 }
 
 int maiorElemento(int *vetor, int tamanho) {
