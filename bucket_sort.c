@@ -15,41 +15,88 @@
 
 #define QUANTIDADE_BUCKETS 10
 
+/**
+ * Tipo abstrato de dado para representar um elemento de um bucket
+ */
 struct elemento {
     int valor;
     struct elemento *proximo;
 };
 
+/**
+ * Tipo abstrato de dado para representar um bucket
+ */
 struct bucket {
     int tamanho;
     struct elemento *primeiroElemento;
 };
 
+/**
+ * @author Daniel Nogueira
+ * Fornece o valor armazenado em um elemento
+ * @param elemento Elemento a ser consultado
+ * @return valor armazenado no elemento
+ */
 int getValorElemento(struct elemento *elemento) {
     return elemento->valor;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Fornece o próximo elemento de um elemento
+ * @param elemento Elemento a ser consultado
+ * @return próximo elemento
+ */
 struct elemento *getProximoElemento(struct elemento *elemento) {
     return elemento->proximo;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Fornece o primeiro elemento de um bucket
+ * @param bucket Bucket a ser consultado
+ * @return primeiro elemento do bucket
+ */
 struct elemento *getPrimeiroElemento(struct bucket *bucket) {
     return bucket->primeiroElemento;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Fornece o tamanho de um bucket
+ * @param bucket Bucket a ser consultado
+ * @return tamanho do bucket
+ */
 int getTamanhoBucket(struct bucket *bucket) {
     return bucket->tamanho;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Posiciona um elemento na frente de outro elemento
+ * @param elemento Elemento
+ * @param elementoProximo Elemento a ser posicionado na frente do elemento
+ */
 void setElementoProximo(struct elemento *elemento, struct elemento *elementoProximo) {
     elemento->proximo = elementoProximo;
 }
 
-
+/**
+ * @author Daniel Nogueira
+ * Posiciona um elemento como primeiro elemento de um bucket
+ * @param bucket Bucket a ser consultado
+ * @param elemento Elemento a ser posicionado como primeiro do bucket
+ */
 void setPrimeiroElemento(struct bucket *bucket, struct elemento *elemento) {
     bucket->primeiroElemento = elemento;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Coloca um elemento no final da lista de um bucket
+ * @param bucket Bucket a ser modificado
+ * @param elemento Elemento que sera colocado no final do Bucket
+ */
 void setUltimoElemento(struct bucket *bucket, struct elemento *elemento) {
     struct elemento *ultimoElemento = getPrimeiroElemento(bucket);
     while (getProximoElemento(ultimoElemento) != NULL) {
@@ -59,18 +106,39 @@ void setUltimoElemento(struct bucket *bucket, struct elemento *elemento) {
     elemento->proximo = NULL;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Define o tamanho de um bucket
+ * @param bucket Bucket a ter o tamanho definido
+ * @param tamanho Tamanho a ser inserido no bucket
+ */
 void setTamanhoBucket(struct bucket *bucket, int tamanho) {
     bucket->tamanho = tamanho;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Define o valor de um elemento
+ * @param elemento Elemento a ter o valor definido
+ * @param valor Valor a ser definido no elemento
+ */
 void setValorElemento(struct elemento *elemento, int valor) {
     elemento->valor = valor;
 }
-
+/**
+ * @author Daniel Nogueira
+ * Incrementa o tamanho de um bucket
+ * @param bucket Bucket a ter o tamanho incrementado
+ */
 void incrementaTamanhoBucket(struct bucket *bucket) {
     bucket->tamanho++;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Desaloca memória alocada para um lista de elementos
+ * @param elemento Primeiro elemento de uma lista a ser desalocada
+ */
 void liberaMemororiaElementos(struct elemento *elemento) {
     Elemento *elemenoTmp;
     while (elemento != NULL) {
@@ -80,11 +148,22 @@ void liberaMemororiaElementos(struct elemento *elemento) {
     }
 }
 
+/**
+ * @author Daniel Nogueira
+ * Dealoca memória de um bucket, incluindo sua lista de elementos
+ * @param bucket Bucket a ter sua memória desalocada, incluindo a lista de elementos
+ */
 void liberaMemoriaBucket(struct bucket *bucket) {
     liberaMemororiaElementos(getPrimeiroElemento(bucket));
     free(bucket);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Desaloca memória de um vetor de buckets, incluindo suas listas de elementos
+ * @param buckets Vetor de buckets a ter sua memória desalocada, incluindo as listas de elementos
+ * @param quantidadeBuckets Quantidade de buckets no vetor
+ */
 void liberaMemoriaBuckets(struct bucket **buckets, int quantidadeBuckets) {
     for (int i = 0; i < quantidadeBuckets; i++) {
         liberaMemororiaElementos(getPrimeiroElemento(buckets[i]));
@@ -196,9 +275,9 @@ bool bucketVazio(Bucket *bucket) {
  * @author Daniel Nogueira
  * @referencia
  * Copia os valores de uma lista de elementos para um vetor a partir de uma determinada posicao do vetor
- * @param vetor
- * @param elemento
- * @param posicao
+ * @param vetor Vetor que recebera a copia dos valores
+ * @param elemento Primeiro elemento da lista de elementos a ser copiada
+ * @param posicao Posicao do vetor a partir da qual os valores serao copiados
  */
 void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, Elemento *elemento, int posicao) {
     while (elemento != NULL) {
@@ -250,15 +329,32 @@ void bucketSort(int *vetor, int numeroElementos) {
     liberaMemoriaBuckets(buckets, QUANTIDADE_BUCKETS);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Remove um elemento de uma lista de elementos
+ * @param elemento Elemento a ser removido
+ * @param elementoAnterior Elemento anterior ao elemento a ser removido
+ */
 void removeElementoLista(Elemento *elemento, Elemento *elementoAnterior) {
     elementoAnterior->proximo = elemento->proximo;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Adiciona um elemento em uma lista de elementos
+ * @param elemento Elemento a ser adicionado
+ * @param elementoAnterior Elemento anterior ao elemento a ser adicionado
+ */
 void adicionaElementoLista(Elemento *elemento, Elemento *elementoAnterior) {
     elemento->proximo = elementoAnterior->proximo;
     elementoAnterior->proximo = elemento;
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método de ordenação Insertion Sort adaptado para as estruturas de dados utilizadas no Bucket Sort
+ * @param bucket Bucket a ser ordenado
+ */
 void insertionSortToBucket(Bucket *bucket) {
     Elemento *elementoCorrente = bucket->primeiroElemento->proximo;
     Elemento *maior = bucket->primeiroElemento;

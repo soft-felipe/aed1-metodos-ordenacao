@@ -11,6 +11,8 @@
 #include <stdlib.h>
 
 /**
+ * @author Felipe Moreira
+ * @author Daniel Nogueira
  * Encapsula o metodo mergeSort, recebendo somente o vetor e o seu tamanho
  * @param vetor
  * @param tamanho
@@ -21,8 +23,9 @@ void mergeSort(int *vetor, int tamanho) {
 
 
 /**
+ * @author Felipe Moreira
  * @author Daniel Nogueira
- * @referencia
+ * @referencia PARCIAMENTE COPIADO: https://www.geeksforgeeks.org/merge-sort/
  * Ordena um vetor de inteiros utilizando o método de ordenação Merge Sort, fragmentando o vetor em sub-vetores
  * @param vetor Vetor a ser ordenado
  * @param tamanhoVetor Tamanho do vetor
@@ -38,7 +41,7 @@ void sort(int vetor[], int inicio, int fim) {
 
 /**
  * @author Daniel Nogueira
- * @referencia
+ * @referencia PARICIAMENTE COPIADO: https://www.geeksforgeeks.org/merge-sort/
  * Ordena os sub-vetores
  * @param vetor Vetor a ser ordenado
  * @param esquerda Vetor da esquerda

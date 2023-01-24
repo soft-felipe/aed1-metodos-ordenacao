@@ -9,11 +9,9 @@
 
 /**
  * @author Daniel Nogueira
- * Classe utilizada para testar os algoritmos de ordenaçao
+ * Métodos utilizados para testar os algoritmos de ordenaçao
  * Testes feitos com vetores ordenados, desordenados e aleatorios
  * Testamos todos os 8 algoritmos de ordenaçao com os vetores criados
- * Se ordenar com sucesso imprimos a mensagem 'SUCESS' em verde,
- * caso contrario a mensagem 'FAIL' em vermelho.
  */
 
 /* Realiza o teste com vetor desordenado */
@@ -144,6 +142,10 @@ int testRandom(int algoritmo) {
     return 0;
 }
 
+/**
+ * @author Felipe Moreira
+ * Método que imprime a relação do indice e dos algoritmos de ordenação
+ */
 void mapeiaAlgoritmos() {
     printf("Codigos por Algoritmo de Ordenaçao:\n");
     printf("0 - INSERTION SORT\n");

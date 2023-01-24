@@ -12,7 +12,8 @@
 
 /**
  * @author Felipe Moreira
- * @referencia Slides dos algoritmos de distribuiçao apresentados em sala
+ * @referencia PARCIALMENTE COPIADO:
+ *             Slides dos algoritmos de distribuiçao apresentados em sala
  *             Programaçao Descomplicada: Aula 123 - Counting Sort
  *             Link video aula: https://www.youtube.com/watch?v=En8daEdcpJU&ab_channel=Programa%C3%A7%C3%A3oDescomplicada
  * Ordena um vetor de inteiros utilizando o método de ordenação Counting Sort

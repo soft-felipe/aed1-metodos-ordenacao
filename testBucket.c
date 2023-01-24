@@ -8,6 +8,10 @@
 #define ANSI_DEFAULT "\033[0m"
 #define ANSI_COLOR_GREEN "\x1b[32m"
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado para testar o método inciaBucket()
+ */
 void testIniciaBucket() {
     Bucket *bucket = iniciaBucket();
     if (getTamanhoBucket(bucket) == 0 && getPrimeiroElemento(bucket) == NULL) {
@@ -19,6 +23,10 @@ void testIniciaBucket() {
     free(bucket);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado  para testar o método inciaElemento()
+ */
 void testIniciaElemento() {
     Elemento *elemento = iniciaElemento(1);
     if (getValorElemento(elemento) == 1 && getProximoElemento(elemento) == NULL) {
@@ -30,6 +38,10 @@ void testIniciaElemento() {
     free(elemento);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado  para testar o método bucketVazio() quando o bucket está vazio
+ */
 void testBucketVazioTrue() {
     Bucket *bucket = iniciaBucket();
     if (bucketVazio(bucket)) {
@@ -41,6 +53,10 @@ void testBucketVazioTrue() {
     free(bucket);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado  para testar o método bucketVazio() quando o bucket está cheio
+ */
 void testBucketVazioFalse() {
     Bucket *bucket = iniciaBucket();
     Elemento *elemento = iniciaElemento(1);
@@ -54,6 +70,11 @@ void testBucketVazioFalse() {
     free(bucket);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado  para testar o método adicionaElementoNaUltimaPosciaoBucket(),
+ * testar se tamanho do bucket aumenta e se o elemento é adicionado na ultima posição
+ */
 void testAdicionaElementoNaUltimaPosicaoBucketTrueTamanhoEPosicao() {
     Bucket *bucket = iniciaBucket();
     setPrimeiroElemento(bucket, iniciaElemento(0));
@@ -69,23 +90,10 @@ void testAdicionaElementoNaUltimaPosicaoBucketTrueTamanhoEPosicao() {
     free(bucket);
 }
 
-void testAlocaMemoriaBucketsTrue() {
-    Bucket **buckets = alocaMemoriaBuckets(10);
-
-    int tamanhoDeMemoria = 0;
-    for (int indice = 0; indice < 10; indice++) {
-        tamanhoDeMemoria += sizeof(&buckets[indice]);
-    }
-
-    if (tamanhoDeMemoria == sizeof(Bucket *) * 10) {
-        printf(ANSI_COLOR_GREEN "testAlocaMemoriaBucketsTrue(): SUCCESS" ANSI_DEFAULT "\n");
-    } else {
-        printf(ANSI_COLOR_RED "testAlocaMemoriaBucketsTrue(): FAIL" ANSI_DEFAULT "\n");
-    }
-
-    free(buckets);
-}
-
+/**
+ * @author Daniel Nogueira
+ * Método utilizado para testar o método alocaMemoriaBuckets(), verifica se outros tamanhos não correspondentes ao pedido
+ */
 void testAlocaMemoriaBucketsFalse() {
     Bucket **buckets = alocaMemoriaBuckets(10);
 
@@ -103,6 +111,10 @@ void testAlocaMemoriaBucketsFalse() {
     free(buckets);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado para testar o Método iniciaBuckets()
+ */
 void testIniciaBuckets() {
     Bucket **buckets = iniciaBuckets(3);
     setPrimeiroElemento(buckets[0], iniciaElemento(0));
@@ -119,6 +131,10 @@ void testIniciaBuckets() {
 
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado  para testar o método copiaValoresDeUmaListaDeElementosOaraUmVetor(), quando o vetor éstá ordenado
+ */
 void testCopiarValoresDeUmaListaDeElementosParaUmVetorOrdenado() {
     Bucket *bucket = iniciaBucket();
 
@@ -155,6 +171,10 @@ void testCopiarValoresDeUmaListaDeElementosParaUmVetorOrdenado() {
     free(elemento4);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado para testar o método copiaValoresDeUmaListaDeElementosOaraUmVetor(), quando o vetor está parcialmete ordenado
+ */
 void testCopiarValoresDeUmaListaDeElementosParaUmVetorSemiOrdenado() {
     Bucket *bucket = iniciaBucket();
 
@@ -195,6 +215,10 @@ void testCopiarValoresDeUmaListaDeElementosParaUmVetorSemiOrdenado() {
     free(elemento4);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado para testar o método insertionSortToBucket()
+ */
 void testInsertionSort() {
     Bucket *bucket = iniciaBucket();
 
@@ -229,6 +253,10 @@ void testInsertionSort() {
     free(vetor);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado para testar o método bucketSort()
+ */
 void testBucketSort() {
     int tamanho = 10;
     int *vetor = alocaMemoriaVetorInteiros(tamanho);
@@ -256,6 +284,10 @@ void testBucketSort() {
     free(vetor);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Método utilizado para testar o método bucketSort() com alto número de elementos
+ */
 void testBucketSortCarga() {
     int tamanho = 30000;
     int *vetor;
@@ -275,6 +307,10 @@ void testBucketSortCarga() {
     free(vetor);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Classe utilizada para chamar os métodos de teste do bucket sort
+ */
 void imprimeResultadoTestBucket() {
     testIniciaBucket();
     testIniciaElemento();
@@ -284,7 +320,6 @@ void imprimeResultadoTestBucket() {
     printf("\n");
     testAdicionaElementoNaUltimaPosicaoBucketTrueTamanhoEPosicao();
     printf("\n");
-    testAlocaMemoriaBucketsTrue();
     testAlocaMemoriaBucketsFalse();
     printf("\n");
     testIniciaBuckets();

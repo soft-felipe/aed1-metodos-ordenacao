@@ -8,10 +8,8 @@
 
 /**
  * @author Daniel Nogueira
- * Classe para testar os metodos utilizados ao longo do nosso codigo
- * implementados na classe 'utilitarios.c'
+ * Testa o método maiorElemento() com um vetor ordenado
  */
-
 void testMaiorElementoDesordenado() {
     int vetorDesordenado[10] = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
     int maior = maiorElemento(vetorDesordenado, 10);
@@ -22,6 +20,10 @@ void testMaiorElementoDesordenado() {
     }
 }
 
+/**
+ * @author Daniel Nogueira
+ * Testa o método maiorElemento() com um vetor desordenado
+ */
 void testMaiorElementoOrdenado() {
     int vetorOrdenado[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int maior = maiorElemento(vetorOrdenado, 10);
@@ -33,6 +35,10 @@ void testMaiorElementoOrdenado() {
 }
 
 
+/**
+ * @author Daniel Nogueira
+ * Método que chama todos os métodos de teste
+ */
 void imprimeResultadoTestUtilitarios() {
     testMaiorElementoDesordenado();
     testMaiorElementoOrdenado();

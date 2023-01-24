@@ -55,4 +55,5 @@ void adicionaElementoLista(Elemento *elemento, Elemento *elementoAnterior);
 
 void setValorElemento(struct elemento *elemento, int valor);
 
+void setUltimoElemento(struct bucket *bucket, struct elemento *elemento);
 #endif //BUCKET_SORT_H
