@@ -9,16 +9,6 @@
 #include "metodos.h"
 
 /**
- * Encapsula o metodo quickSort, recebendo somente o vetor e o seu tamanho
- * @param vetor
- * @param tamanho
- */
-void quickSort(int *vetor, int tamanho) {
-    quick(vetor, 0, tamanho - 1);
-}
-
-
-/**
  * @author Felipe Moreira
  * @referencia Slides dos algoritmos de distribuiçao apresentados em sala
  *             Programaçao Descomplicada: Aula 52 - Quick Sort
@@ -28,11 +18,11 @@ void quickSort(int *vetor, int tamanho) {
  * @param inicio Primeira posiçao do vetor
  * @param fim Ultima posiçao do vetor
  */
-void quick(int *vetor, int inicio, int fim) {
+void quickSort(int *vetor, int inicio, int fim) {
     if (inicio < fim) {
         int q = particiona(vetor, inicio, fim);
-        quick(vetor, inicio, q - 1);
-        quick(vetor, q + 1, fim);
+        quickSort(vetor, inicio, q - 1);
+        quickSort(vetor, q + 1, fim);
     }
 }
 /**
@@ -81,7 +71,7 @@ double quickSortTime(int *vetor, int numeroElementos) {
     clock_t startClock, endClock;
     double tempoGasto;
     startClock = clock();
-    quickSort(vetor, numeroElementos);
+    quickSort(vetor, 0,numeroElementos);
     endClock = clock();
     tempoGasto = ((double) (endClock - startClock)) / CLOCKS_PER_SEC * 1000;
     return tempoGasto;

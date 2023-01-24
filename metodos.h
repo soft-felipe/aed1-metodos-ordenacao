@@ -9,15 +9,11 @@ void selectionSort(int *vetor, int numeroElementos);
 
 void bubbleSort(int *vetor, int numeroElementos);
 
-void mergeSort(int *vetor, int tamanho);
+void mergeSort(int *vetor, int inicio, int fim);
 
-void sort(int *vetor, int inicio, int fim);
+void merge(int *vetor, int inicio, int meio, int fim);
 
-void merge(int *vetor, int l, int m, int r);
-
-void quickSort(int *vetor, int tamanho);
-
-void quick(int *vetor, int inicio, int fim);
+void quickSort(int *vetor, int inicio, int fim);
 
 int particiona(int *vetor, int inicio, int fim);
 
