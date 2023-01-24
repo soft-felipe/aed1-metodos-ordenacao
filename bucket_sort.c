@@ -305,12 +305,21 @@ void bucketSort(int *vetor, int numeroElementos) {
     Bucket **buckets = iniciaBuckets(QUANTIDADE_BUCKETS);
 
     for (int indice = 0; indice < numeroElementos; indice++) {
+        //Os elementos são adicionados nos buckets pelo tamanho deles em
+        //relação ao maior elemento do vetor
+        //Os buckets são divididos em faixas de 10% do maior elemento
+        //Ex: se o maior elemento do vetor for 1000 e o elemento atual for 500,
+        //ele será adicionado no bucket 5
         double porcentagemEmRelacaoMaior =  vetor[indice] * 1.0 / maior;
 
+        //Se o elemento for do tamanho do maior elemento é necessário diminuir
+        //sua porcetagem por questão dos calculos que são ultilizados para
+        //determinar em qual bucket o elemento será adicionado
         if (porcentagemEmRelacaoMaior == 1) {
             porcentagemEmRelacaoMaior = 0.99;
         }
 
+        //indiceBucket referencia qual bucket o elemento será adicionado
         int indiceBucket = (porcentagemEmRelacaoMaior * QUANTIDADE_BUCKETS);
         elemento = iniciaElemento(vetor[indice]);
         adicionaElementoBucket(buckets[indiceBucket], elemento);
@@ -319,13 +328,18 @@ void bucketSort(int *vetor, int numeroElementos) {
     int indiceVetor = 0;
     for (int indiceBucket = 0; indiceBucket < QUANTIDADE_BUCKETS; indiceBucket++) {
         if (buckets[indiceBucket]->tamanho > 1) {
+            //Método de ordenação utilizado para ordenar os elementos de um bucket
             insertionSortToBucket(buckets[indiceBucket]);
         }
 
+        //Copia os valores dos elementos dos buckets ordenados para o vetor de inteiros
+        //de acordo com a posicao do vetor que o elemento deve ser adicionado
+        //ou seja, aglutina os buckets ordenados no vetor
         copiaValoresDeUmaListaDeElementosParaUmVetor(vetor, buckets[indiceBucket]->primeiroElemento, indiceVetor);
         indiceVetor +=buckets[indiceBucket]->tamanho;
     }
 
+    //Libera a memoria alocada para os buckets e seus respectivos elementos
     liberaMemoriaBuckets(buckets, QUANTIDADE_BUCKETS);
 }
 
