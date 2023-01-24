@@ -29,7 +29,7 @@ void liberaMemoria(int *vetor) {
 }
 /**
  * @author Daniel Nogueira
- * @referencia PARCIALMETE COPIADO:
+ * @referencia PARCIALMETE COPIADO: https://stackoverflow.com/questions/13802399/generate-a-random-array-in-c
  * @param tamanho Quantidade de elementos aleatórios a ser gerada
  * @return Um endereço de memória para um vetor de inteiros
  */
