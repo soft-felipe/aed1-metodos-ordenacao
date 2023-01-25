@@ -13,6 +13,7 @@
 
 /**
  * @author Daniel Nogueira
+ * @referencia PARCIAMENTE COPIADO: https://www.geeksforgeeks.org/radix-sort/
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor
  * @param pos Digito a ser considerado para ordenacao
@@ -41,7 +42,7 @@ void countingSortToRadix(int vetor[], int numeroElementos, int pos) {
 
 /**
  * @author Daniel Nogueira
- * @referencia
+ * @referencia PARCIAMENTE COPIADO: https://www.geeksforgeeks.org/radix-sort/
  * Ordena um vetor de inteiros utilizando o método de ordenação Radix Sort
  * que implementa o Counting Sort
  * @param vetor Vetor a ser ordenado

@@ -1,7 +1,15 @@
+/*
+ * Alunos:
+ *  Felipe Moreira - 202105027
+ *  Daniel Nogueira - 202105024
+ *  Norton Almeida - 202203526
+ */
+
 #include "metodos.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "test.h"
+#include "string.h"
 
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_DEFAULT "\033[0m"
@@ -9,11 +17,9 @@
 
 /**
  * @author Daniel Nogueira
- * Classe utilizada para testar os algoritmos de ordenaçao
+ * Métodos utilizados para testar os algoritmos de ordenaçao
  * Testes feitos com vetores ordenados, desordenados e aleatorios
  * Testamos todos os 8 algoritmos de ordenaçao com os vetores criados
- * Se ordenar com sucesso imprimos a mensagem 'SUCESS' em verde,
- * caso contrario a mensagem 'FAIL' em vermelho.
  */
 
 /* Realiza o teste com vetor desordenado */
@@ -133,10 +139,14 @@ int testRandom(int algoritmo) {
             break;
 
     }
-    qsort(vetor, 10, sizeof(int), cmpfunc);
+
+    int vetorEsperado[10];
+    // Copia o vetor para o vetorEsperado
+    memcpy(&vetorEsperado, &vetor, sizeof(vetor));
+    qsort(vetorEsperado, 10, sizeof(int), cmpfunc);
 
     for (int indice = 0; indice < 9; indice++) {
-        if (vetor[indice] > vetor[indice + 1]) {
+        if (vetorEsperado[indice] != vetor[indice]) {
             return algoritmo;
         }
     }
@@ -144,6 +154,10 @@ int testRandom(int algoritmo) {
     return 0;
 }
 
+/**
+ * @author Felipe Moreira
+ * Método que imprime a relação do indice e dos algoritmos de ordenação
+ */
 void mapeiaAlgoritmos() {
     printf("Codigos por Algoritmo de Ordenaçao:\n");
     printf("0 - INSERTION SORT\n");

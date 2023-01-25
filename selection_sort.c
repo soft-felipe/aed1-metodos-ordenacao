@@ -10,7 +10,7 @@
 
 /**
  * @author Felipe Moreira
- * @referencia Feito em sala, durante a aula com auxilio dos slides.
+ * @referencia PARCIALMENTE COPIADO: Feito em sala, durante a aula com auxilio dos slides
  * Ordena um vetor de inteiros utilizando o método de ordenação Selection Sort
  * @param vetor Vetor a ser ordenado
  * @param numeroElementos Tamanho do vetor

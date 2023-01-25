@@ -9,86 +9,68 @@
 #include "metodos.h"
 #include <time.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include "bucket_sort.h"
 #include "string.h"
 
 #define QUANTIDADE_BUCKETS 10
 
-struct elemento {
-    int valor;
-    struct elemento *proximo;
-};
-
+/**
+ * Tipo abstrato de dado para representar um bucket
+ */
 struct bucket {
     int tamanho;
-    struct elemento *primeiroElemento;
+    int *array;
 };
 
-int getValorElemento(struct elemento *elemento) {
-    return elemento->valor;
-}
-
-struct elemento *getProximoElemento(struct elemento *elemento) {
-    return elemento->proximo;
-}
-
-struct elemento *getPrimeiroElemento(struct bucket *bucket) {
-    return bucket->primeiroElemento;
-}
-
+/**
+ * @author Daniel Nogueira
+ * Fornece o tamanho de um bucket
+ * @param bucket Bucket a ser consultado
+ * @return tamanho do bucket
+ */
 int getTamanhoBucket(struct bucket *bucket) {
     return bucket->tamanho;
 }
 
-void setElementoProximo(struct elemento *elemento, struct elemento *elementoProximo) {
-    elemento->proximo = elementoProximo;
-}
 
-
-void setPrimeiroElemento(struct bucket *bucket, struct elemento *elemento) {
-    bucket->primeiroElemento = elemento;
-}
-
-void setUltimoElemento(struct bucket *bucket, struct elemento *elemento) {
-    struct elemento *ultimoElemento = getPrimeiroElemento(bucket);
-    while (getProximoElemento(ultimoElemento) != NULL) {
-        ultimoElemento = getProximoElemento(ultimoElemento);
-    }
-    setElementoProximo(ultimoElemento, elemento);
-    elemento->proximo = NULL;
-}
-
+/**
+ * @author Daniel Nogueira
+ * Define o tamanho de um bucket
+ * @param bucket Bucket a ter o tamanho definido
+ * @param tamanho Tamanho a ser inserido no bucket
+ */
 void setTamanhoBucket(struct bucket *bucket, int tamanho) {
     bucket->tamanho = tamanho;
 }
 
-void setValorElemento(struct elemento *elemento, int valor) {
-    elemento->valor = valor;
-}
-
+/**
+ * @author Daniel Nogueira
+ * Incrementa o tamanho de um bucket
+ * @param bucket Bucket a ter o tamanho incrementado
+ */
 void incrementaTamanhoBucket(struct bucket *bucket) {
     bucket->tamanho++;
 }
 
-void liberaMemororiaElementos(struct elemento *elemento) {
-    Elemento *elemenoTmp;
-    while (elemento != NULL) {
-        elemenoTmp = elemento;
-        elemento = getProximoElemento(elemento);
-        free(elemenoTmp);
-    }
-}
-
+/**
+ * @author Daniel Nogueira
+ * Dealoca memória de um bucket, incluindo sua lista de elementos
+ * @param bucket Bucket a ter sua memória desalocada, incluindo a lista de elementos
+ */
 void liberaMemoriaBucket(struct bucket *bucket) {
-    liberaMemororiaElementos(getPrimeiroElemento(bucket));
+    free(bucket->array);
     free(bucket);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Desaloca memória de um vetor de buckets, incluindo suas listas de elementos
+ * @param buckets Vetor de buckets a ter sua memória desalocada, incluindo as listas de elementos
+ * @param quantidadeBuckets Quantidade de buckets no vetor
+ */
 void liberaMemoriaBuckets(struct bucket **buckets, int quantidadeBuckets) {
     for (int i = 0; i < quantidadeBuckets; i++) {
-        liberaMemororiaElementos(getPrimeiroElemento(buckets[i]));
-        free(buckets[i]);
+        liberaMemoriaBucket(buckets[i]);
     }
     free(buckets);
 }
@@ -102,69 +84,11 @@ void liberaMemoriaBuckets(struct bucket **buckets, int quantidadeBuckets) {
 Bucket *iniciaBucket() {
     Bucket *bucket = (Bucket *) malloc(sizeof(Bucket));
     bucket->tamanho = 0;
-    bucket->primeiroElemento = NULL;
+    bucket->array = NULL;
 
     return bucket;
 }
 
-/**
- * @author Daniel Nogueira
- * @referencia
- * Inicia um elemento
- * @return elemento
- */
-Elemento *iniciaElemento(int valor) {
-    Elemento *elemento = (Elemento *) malloc(sizeof(Elemento));
-    elemento->valor = valor;
-    elemento->proximo = NULL;
-
-    return elemento;
-}
-
-
-/**
- * @author Daniel Nogueira
- * @referencia
- * Verifica se um bucket esta vazio
- * @param bucket Bucket a ser verificado
- * @return true se o bucket estiver vazio, false caso contrario
- */
-bool bucketVazio(Bucket *bucket) {
-    return bucket->tamanho == 0 && bucket->primeiroElemento == NULL;
-}
-
-/**
- * @author Daniel Nogueira
- * @referencia
- * Adiciona um elemento na última posição de um bucket
- * @param bucket Bucket a ser adicionado o elemento
- * @param elemento Elemento a ser adicionado
- */
- void adicionaElementoNaUltimaPosicaoBucket(Bucket *bucket, Elemento *elemento) {
-     if (bucketVazio(bucket)) {
-         setPrimeiroElemento(bucket, elemento);
-         bucket->tamanho++;
-         return;
-     } else {
-         Elemento *elementoCorrente = bucket->primeiroElemento;
-         while (elementoCorrente->proximo != NULL) {
-             elementoCorrente = elementoCorrente->proximo;
-         }
-         setElementoProximo(elementoCorrente, elemento);
-            bucket->tamanho++;
-     }
- }
-
-/**
- * @author Daniel Nogueira
- * @referencia
- * Adiciona um elemento ao bucket
- * @param bucket Bucket a ser adicionado o elemento
- * @param elemento Elemento a ser adicionado
- */
- void adicionaElementoBucket(Bucket *bucket, Elemento *elemento) {
-    adicionaElementoNaUltimaPosicaoBucket(bucket, elemento);
- }
 
  /**
   * @author Daniel Nogueira
@@ -192,22 +116,19 @@ bool bucketVazio(Bucket *bucket) {
      }
      return buckets;
  }
-/**
- * @author Daniel Nogueira
- * @referencia
- * Copia os valores de uma lista de elementos para um vetor a partir de uma determinada posicao do vetor
- * @param vetor
- * @param elemento
- * @param posicao
- */
-void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, Elemento *elemento, int posicao) {
-    while (elemento != NULL) {
-        memcpy(&vetor[posicao], &elemento->valor, sizeof(int));
-        elemento = elemento->proximo;
-        posicao++;
-    }
-}
 
+
+ /**
+  * @author Daniel Nogueira
+  * Copia o array de um bucket para uma posicao em um vetor
+  * @param vetor Vetor que recebe a copia do array do bucket a partir de uma determinada
+  * posicao
+  * @param bucket Bucket que tem o array copiado
+  * @param posicao Posicao do vetor que começara a ser copiado o array
+  */
+ void copiaValoresDoArrayParaVetor(int *vetor, Bucket *bucket, int posicao) {
+     memcpy(&vetor[posicao], bucket->array, bucket->tamanho * sizeof(int));
+ }
 
 /**
  * @author Daniel Nogueira
@@ -217,7 +138,6 @@ void copiaValoresDeUmaListaDeElementosParaUmVetor(int *vetor, Elemento *elemento
  * @param numeroElementos Tamanho do vetor
  */
 void bucketSort(int *vetor, int numeroElementos) {
-    Elemento *elemento;
     int maior = maiorElemento(vetor, numeroElementos);
     if (maior == 0) {
         return;
@@ -226,65 +146,49 @@ void bucketSort(int *vetor, int numeroElementos) {
     Bucket **buckets = iniciaBuckets(QUANTIDADE_BUCKETS);
 
     for (int indice = 0; indice < numeroElementos; indice++) {
+        //Os elementos são adicionados nos buckets pelo tamanho deles em
+        //relação ao maior elemento do vetor
+        //Os buckets são divididos em faixas de 10% do maior elemento
+        //Ex: se o maior elemento do vetor for 1000 e o elemento atual for 500,
+        //ele será adicionado no bucket 5
         double porcentagemEmRelacaoMaior =  vetor[indice] * 1.0 / maior;
 
+        //Se o elemento for do tamanho do maior elemento é necessário diminuir
+        //sua porcetagem por questão dos calculos que são ultilizados para
+        //determinar em qual bucket o elemento será adicionado
         if (porcentagemEmRelacaoMaior == 1) {
             porcentagemEmRelacaoMaior = 0.99;
         }
 
+        //indiceBucket referencia qual bucket o elemento será adicionado
         int indiceBucket = (porcentagemEmRelacaoMaior * QUANTIDADE_BUCKETS);
-        elemento = iniciaElemento(vetor[indice]);
-        adicionaElementoBucket(buckets[indiceBucket], elemento);
+
+        buckets[indiceBucket]->array = (int *) realloc(buckets[indiceBucket]->array,
+                                                       (buckets[indiceBucket]->tamanho + 1) * sizeof (int));
+        buckets[indiceBucket]->array[buckets[indiceBucket]->tamanho] = vetor[indice];
+        incrementaTamanhoBucket(buckets[indiceBucket]);
     }
 
     int indiceVetor = 0;
     for (int indiceBucket = 0; indiceBucket < QUANTIDADE_BUCKETS; indiceBucket++) {
+        //Só ordena os buckets se eles tiverem mais de um elemento
         if (buckets[indiceBucket]->tamanho > 1) {
-            insertionSortToBucket(buckets[indiceBucket]);
+            //Método de ordenação utilizado para ordenar os elementos de um bucket
+            countingSort(buckets[indiceBucket]->array, buckets[indiceBucket]->tamanho);
         }
 
-        copiaValoresDeUmaListaDeElementosParaUmVetor(vetor, buckets[indiceBucket]->primeiroElemento, indiceVetor);
+        //Copia os valores dos elementos dos buckets ordenados para o vetor de inteiros
+        //de acordo com a posicao do vetor que o elemento deve ser adicionado
+        //ou seja, aglutina os buckets ordenados no vetor
+        copiaValoresDoArrayParaVetor(vetor, buckets[indiceBucket], indiceVetor);
         indiceVetor +=buckets[indiceBucket]->tamanho;
     }
 
+    //Libera a memoria alocada para os buckets e seus respectivos elementos
     liberaMemoriaBuckets(buckets, QUANTIDADE_BUCKETS);
 }
 
-void removeElementoLista(Elemento *elemento, Elemento *elementoAnterior) {
-    elementoAnterior->proximo = elemento->proximo;
-}
 
-void adicionaElementoLista(Elemento *elemento, Elemento *elementoAnterior) {
-    elemento->proximo = elementoAnterior->proximo;
-    elementoAnterior->proximo = elemento;
-}
-
-void insertionSortToBucket(Bucket *bucket) {
-    Elemento *elementoCorrente = bucket->primeiroElemento->proximo;
-    Elemento *maior = bucket->primeiroElemento;
-    Elemento *elementoCorrenteProximo;
-    while (elementoCorrente != NULL) {
-        if (maior->valor > elementoCorrente->valor) {
-            elementoCorrenteProximo = elementoCorrente->proximo;
-            removeElementoLista(elementoCorrente, maior);
-            if (elementoCorrente->valor < bucket->primeiroElemento->valor) {
-                setElementoProximo(elementoCorrente, bucket->primeiroElemento);
-                setPrimeiroElemento(bucket, elementoCorrente);
-            } else {
-                Elemento *indiceVetorOrdenado = bucket->primeiroElemento;
-                while (indiceVetorOrdenado->proximo->valor < elementoCorrente->valor) {
-                    indiceVetorOrdenado = indiceVetorOrdenado->proximo;
-                }
-                adicionaElementoLista(elementoCorrente, indiceVetorOrdenado);
-            }
-            elementoCorrente = elementoCorrenteProximo;
-        }
-        else {
-            maior = elementoCorrente;
-            elementoCorrente = elementoCorrente->proximo;
-        }
-    }
-}
 
 /**
 * @author Daniel Nogueira

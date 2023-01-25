@@ -10,7 +10,8 @@
 
 /**
  * @author Felipe Moreira
- * @referencia Slides dos algoritmos de distribuiçao apresentados em sala
+ * @referencia PARCIALMENTE COPIADO:
+ *             Slides dos algoritmos de distribuiçao apresentados em sala
  *             Programaçao Descomplicada: Aula 52 - Quick Sort
  *             Link video aula: https://www.youtube.com/watch?v=spywQ2ix_Co&ab_channel=Programa%C3%A7%C3%A3oDescomplicada
  * Ordena um vetor de inteiros utilizando o método de ordenação Quick Sort
@@ -27,6 +28,10 @@ void quickSort(int *vetor, int inicio, int fim) {
 }
 /**
  * @author Felipe Moreira
+ * @referencia PARCIALMENTE COPIADO:
+ *             Slides dos algoritmos de distribuiçao apresentados em sala
+ *             Programaçao Descomplicada: Aula 52 - Quick Sort
+ *             Link video aula: https://www.youtube.com/watch?v=spywQ2ix_Co&ab_channel=Programa%C3%A7%C3%A3oDescomplicada
  * Divide um vetor em duas partes, uma com elementos menores que o pivo e outra com elementos maiores que o pivo
  * @param vetor Vetor a ser ordenado
  * @param inicio Primeira posiçao do vetor
