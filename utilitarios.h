@@ -1,3 +1,10 @@
+/*
+ * Alunos:
+ *  Felipe Moreira - 202105027
+ *  Daniel Nogueira - 202105024
+ *  Norton Almeida - 202203526
+ */
+
 #ifndef UTILITARIOS_H
 #define UTILITARIOS_H
 
