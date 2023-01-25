@@ -15,6 +15,22 @@
 
 /**
  * @author Daniel Nogueira
+ * Testa o método zeraArrayDouble()
+ */
+void testZeraArrayDouble() {
+    double array[5] = {1, 2, 3, 4, 5};
+    zeraArrayDouble(array, 5);
+    for (int i = 0; i < 5; i++) {
+        if (array[i] != 0) {
+            printf(ANSI_COLOR_RED "testZeraArrayDouble(): FAIL\n" ANSI_DEFAULT);
+        }
+    }
+    printf(ANSI_COLOR_GREEN "testZeraArrayDouble(): SUCCESS\n" ANSI_DEFAULT);
+}
+
+
+/**
+ * @author Daniel Nogueira
  * Testa o método maiorElemento() com um vetor ordenado
  */
 void testMaiorElementoDesordenado() {
@@ -47,6 +63,7 @@ void testMaiorElementoOrdenado() {
  * Método que chama todos os métodos de teste
  */
 void imprimeResultadoTestUtilitarios() {
+    testZeraArrayDouble();
     testMaiorElementoDesordenado();
     testMaiorElementoOrdenado();
 }
