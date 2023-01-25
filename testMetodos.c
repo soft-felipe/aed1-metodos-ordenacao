@@ -36,10 +36,10 @@ int testDesordenado(int algoritmo) {
                 bubbleSort(vetorDesordenado, 10);
                 break;
             case 4:
-                mergeSort(vetorDesordenado, 0, 10);
+                mergeSort(vetorDesordenado, 10);
                 break;
             case 5:
-                quickSort(vetorDesordenado, 0, 10);
+                quickSort(vetorDesordenado, 10);
                 break;
             case 6:
                 countingSort(vetorDesordenado, 10);
@@ -75,10 +75,10 @@ int testOrdenado(int algoritmo) {
                 bubbleSort(vetor, 10);
                 break;
             case 4:
-                mergeSort(vetor, 0, 10);
+                mergeSort(vetor, 10);
                 break;
             case 5:
-                quickSort(vetor,0, 10);
+                quickSort(vetor, 10);
                 break;
             case 6:
                 countingSort(vetor, 10);
@@ -123,10 +123,10 @@ int testRandom(int algoritmo) {
             bubbleSort(vetor, 10);
             break;
         case 4:
-            mergeSort(vetor, 0, 10);
+            mergeSort(vetor, 10);
             break;
         case 5:
-            quickSort(vetor, 0, 10);
+            quickSort(vetor, 10);
             break;
         case 6:
             countingSort(vetor, 10);
@@ -159,7 +159,7 @@ int testRandom(int algoritmo) {
  * Método que imprime a relação do indice e dos algoritmos de ordenação
  */
 void mapeiaAlgoritmos() {
-    printf("Codigos por Algoritmo de Ordenaçao:\n");
+    printf("Codigos por Algoritmos:\n");
     printf("0 - INSERTION SORT\n");
     printf("1 - SELECTION SORT\n");
     printf("2 - BUBBLE SORT\n");
