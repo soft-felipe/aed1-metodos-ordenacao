@@ -17,7 +17,7 @@
 
 void testBucketSortDesordenado() {
     int *vetorDesordenado;
-
+    //Testando vetor de com 100.000 elementos aleatórios
     int tamanho = 100000;
     vetorDesordenado =
 
