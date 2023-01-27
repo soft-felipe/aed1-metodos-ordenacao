@@ -180,23 +180,23 @@ void imprimeResultadoTestMetodos() {
     while (algoritmo <= 8) {
         resultado = testDesordenado(algoritmo);
         if (resultado != 0) {
-            printf(ANSI_COLOR_RED "testDesordenado() algoritmo %d: FAIL\n" ANSI_DEFAULT, resultado);
+            printf(ANSI_COLOR_RED "testDesordenado() algoritmo %d: FAIL\n" ANSI_DEFAULT, resultado - 1);
         } else {
-            printf(ANSI_COLOR_GREEN "testDesordenado() algoritmo %d : SUCCESS\n" ANSI_DEFAULT, algoritmo);
+            printf(ANSI_COLOR_GREEN "testDesordenado() algoritmo %d : SUCCESS\n" ANSI_DEFAULT, algoritmo - 1);
         }
 
         resultado = testOrdenado(algoritmo);
         if (resultado != 0) {
-            printf(ANSI_COLOR_RED "testOrdenado() algoritmo %d: FAIL\n" ANSI_DEFAULT, resultado);
+            printf(ANSI_COLOR_RED "testOrdenado() algoritmo %d: FAIL\n" ANSI_DEFAULT, resultado - 1);
         } else {
-            printf(ANSI_COLOR_GREEN "testOrdenado() algoritmo %d: SUCCESS\n" ANSI_DEFAULT, algoritmo);
+            printf(ANSI_COLOR_GREEN "testOrdenado() algoritmo %d: SUCCESS\n" ANSI_DEFAULT, algoritmo - 1);
         }
 
         resultado = testRandom(algoritmo);
         if (resultado != 0) {
-            printf(ANSI_COLOR_RED "testRandom() algoritmo %d: FAIL\n" ANSI_DEFAULT, resultado);
+            printf(ANSI_COLOR_RED "testRandom() algoritmo %d: FAIL\n" ANSI_DEFAULT, resultado - 1);
         } else {
-            printf(ANSI_COLOR_GREEN "testRandom() algoritmo %d: SUCCESS\n\n" ANSI_DEFAULT, algoritmo);
+            printf(ANSI_COLOR_GREEN "testRandom() algoritmo %d: SUCCESS\n\n" ANSI_DEFAULT, algoritmo - 1);
         }
         algoritmo++;
     }
