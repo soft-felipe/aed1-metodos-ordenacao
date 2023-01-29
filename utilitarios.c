@@ -54,7 +54,7 @@ int *geraVetorAleatorio(int tamanho) {
     */
      srand(time(NULL));
     for (int i = 0; i < tamanho; i++) {
-        vetor[i] = rand() % 10;
+        vetor[i] = rand() % 1000;
     }
     return vetor;
 }
