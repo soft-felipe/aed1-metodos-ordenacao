@@ -32,7 +32,6 @@ int getTamanhoBucket(struct bucket *bucket) {
     return bucket->tamanho;
 }
 
-
 /**
  * @author Daniel Nogueira
  * Define o tamanho de um bucket
@@ -89,7 +88,6 @@ Bucket *iniciaBucket() {
     return bucket;
 }
 
-
  /**
   * @author Daniel Nogueira
   * @referencia
@@ -102,6 +100,7 @@ Bucket *iniciaBucket() {
 
      return buckets;
  }
+
 /**
  * @author Daniel Nogueira
  * @referencia
@@ -116,7 +115,6 @@ Bucket *iniciaBucket() {
      }
      return buckets;
  }
-
 
  /**
   * @author Daniel Nogueira
@@ -187,8 +185,6 @@ void bucketSort(int *vetor, int numeroElementos) {
     //Libera a memoria alocada para os buckets e seus respectivos elementos
     liberaMemoriaBuckets(buckets, QUANTIDADE_BUCKETS);
 }
-
-
 
 /**
 * @author Daniel Nogueira

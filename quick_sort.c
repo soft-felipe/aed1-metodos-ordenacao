@@ -17,7 +17,6 @@ void quickSort(int *vetor, int tamanho) {
     quick(vetor, 0, tamanho - 1);
 }
 
-
 /**
  * @author Felipe Moreira
  * @referencia PARCIALMENTE COPIADO:
@@ -36,6 +35,7 @@ void quick(int *vetor, int inicio, int fim) {
         quick(vetor, q + 1, fim);
     }
 }
+
 /**
  * @author Felipe Moreira
  * @referencia PARCIALMENTE COPIADO:

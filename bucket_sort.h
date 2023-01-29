@@ -5,7 +5,6 @@
  *  Norton Almeida - 202203526
  */
 
-
 #ifndef BUCKET_SORT_H
 #define BUCKET_SORT_H
 

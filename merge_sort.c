@@ -21,7 +21,6 @@ void mergeSort(int *vetor, int tamanho) {
     sort(vetor, 0, tamanho - 1);
 }
 
-
 /**
  * @author Felipe Moreira
  * @author Daniel Nogueira

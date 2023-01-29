@@ -10,10 +10,10 @@
 #include "utilitarios.h"
 #include <stdio.h>
 #include "metodos.h"
+
 /*
  * Arquivo utilizado para armazenar métodos úteis para o desenvolvimento da aplicação
  */
-
 
 
 /**
@@ -34,6 +34,7 @@ int *alocaMemoriaVetorInteiros(int tamanho) {
 void liberaMemoria(int *vetor) {
     free(vetor);
 }
+
 /**
  * @author Daniel Nogueira
  * @referencia PARCIALMETE COPIADO: https://stackoverflow.com/questions/13802399/generate-a-random-array-in-c
@@ -53,7 +54,7 @@ int *geraVetorAleatorio(int tamanho) {
     */
      srand(time(NULL));
     for (int i = 0; i < tamanho; i++) {
-        vetor[i] = rand() % 10;
+        vetor[i] = rand() % 1000;
     }
     return vetor;
 }
@@ -107,6 +108,12 @@ double tempoDeExecucao(int *vetor, int numeroElementos, int indice) {
     return metodos[indice](vetor, numeroElementos);
 }
 
+/**
+ * @author Daniel Nogueira
+ * Zera todas os valores de um vetor do tipo double
+ * @param array Vetor a ser zerado
+ * @param tamanho Tamanho do vetor
+ */
 void zeraArrayDouble(double *array, int tamanho) {
     for (int i = 0; i < tamanho; i++) {
         array[i] = 0;
